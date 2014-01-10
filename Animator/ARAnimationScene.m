@@ -129,12 +129,12 @@
 -(void)snapshotFrame
 {
     //Record frame
-    self.currentFrame ++;
-    frames ++;
-    
     for (ARPart *part in parts){
         [part snapshotAtFrame:self.currentFrame];
     }
+    
+    self.currentFrame ++;
+    frames ++;
 }
 
 -(void)update:(NSTimeInterval)currentTime
@@ -168,7 +168,7 @@
     UITouch *touch = [touches anyObject];
     touchPosition = [touch locationInNode:self];
     
-    nodeToDrag = (SKSpriteNode *)[self nodeAtPoint:touchPosition];
+    nodeToDrag = (ARPart *)[self nodeAtPoint:touchPosition];
     if (![parts containsObject:nodeToDrag]){
         nodeToDrag = nil;
         return;
@@ -194,6 +194,8 @@
         
         timerRecord = [NSTimer scheduledTimerWithTimeInterval:1.0f/24.0f target:self selector:@selector(snapshotFrame) userInfo:nil repeats:YES];
         frameStartedDrag = self.currentFrame;
+        
+        [self snapshotFrame];
     }
 }
 
@@ -218,13 +220,13 @@
     timerRecord = nil;
     
     //Don't record animation if dragged offscreen
-    if (nodeToDrag.position.y < 80){
+    if (nodeToDrag && nodeToDrag.position.y < 80){
         //delete recording
         for (ARPart *part in parts)
-            [part removeFramesInRange:NSMakeRange(frameStartedDrag, self.currentFrame)];
+            [part removeFramesInRange:NSMakeRange(frameStartedDrag, self.currentFrame-1)];
         
-        frames = frameStartedDrag;
-        self.currentFrame = frameStartedDrag;
+        frames = frameStartedDrag-1;
+        self.currentFrame = frameStartedDrag-1;
     }
     
     nodeToDrag = nil;

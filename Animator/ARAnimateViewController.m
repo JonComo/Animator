@@ -34,6 +34,20 @@
     [sceneView presentScene:scene];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    scene.paused = YES;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    scene.paused = NO;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -55,9 +69,9 @@
 
 - (IBAction)done:(id)sender {
     [scene renderCompletion:^(NSMutableArray *images) {
-        [ARMovieComposer renderImages:images completion:^{
+        /*[ARMovieComposer renderImages:images completion:^{
             NSLog(@"REndered");
-        }];
+        }]; */
     }];
 }
 
