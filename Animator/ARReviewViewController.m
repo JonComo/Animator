@@ -1,23 +1,23 @@
 //
-//  ARViewController.m
+//  ARReviewViewController.m
 //  Animator
 //
-//  Created by Jon Como on 1/9/14.
+//  Created by Jon Como on 1/10/14.
 //  Copyright (c) 2014 Jon Como. All rights reserved.
 //
 
-#import "ARViewController.h"
+#import "ARReviewViewController.h"
 
-@interface ARViewController ()
+@interface ARReviewViewController ()
 
 @end
 
-@implementation ARViewController
+@implementation ARReviewViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning

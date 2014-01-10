@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8667AE4F187FB88800600654 /* ARAnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE4E187FB88800600654 /* ARAnimationScene.m */; };
+		8667AE54187FBFE100600654 /* EADrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE51187FBFE100600654 /* EADrawView.m */; };
+		8667AE55187FBFE100600654 /* EAScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE53187FBFE100600654 /* EAScrollView.m */; };
+		8667AE5A187FC11800600654 /* EALineDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE59187FC11800600654 /* EALineDisplayView.m */; };
+		8667AE5D187FD99E00600654 /* ARPart.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE5C187FD99E00600654 /* ARPart.m */; };
+		8667AE61187FEEAD00600654 /* ARReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE60187FEEAD00600654 /* ARReviewViewController.m */; };
+		8667AE64187FEFE500600654 /* ARMovieComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE63187FEFE500600654 /* ARMovieComposer.m */; };
 		868905A7187FB40F003F016C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 868905A6187FB40F003F016C /* Foundation.framework */; };
 		868905A9187FB40F003F016C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 868905A8187FB40F003F016C /* CoreGraphics.framework */; };
 		868905AB187FB40F003F016C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 868905AA187FB40F003F016C /* UIKit.framework */; };
@@ -14,13 +21,15 @@
 		868905B3187FB40F003F016C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 868905B2187FB40F003F016C /* main.m */; };
 		868905B7187FB40F003F016C /* ARAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 868905B6187FB40F003F016C /* ARAppDelegate.m */; };
 		868905BA187FB40F003F016C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 868905B8187FB40F003F016C /* Main.storyboard */; };
-		868905BD187FB40F003F016C /* ARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868905BC187FB40F003F016C /* ARViewController.m */; };
 		868905BF187FB40F003F016C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 868905BE187FB40F003F016C /* Images.xcassets */; };
 		868905C6187FB40F003F016C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 868905C5187FB40F003F016C /* XCTest.framework */; };
 		868905C7187FB40F003F016C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 868905A6187FB40F003F016C /* Foundation.framework */; };
 		868905C8187FB40F003F016C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 868905AA187FB40F003F016C /* UIKit.framework */; };
 		868905D0187FB40F003F016C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 868905CE187FB40F003F016C /* InfoPlist.strings */; };
 		868905D2187FB40F003F016C /* AnimatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 868905D1187FB40F003F016C /* AnimatorTests.m */; };
+		868905DD187FB5FA003F016C /* ARHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868905DC187FB5FA003F016C /* ARHomeViewController.m */; };
+		868905E1187FB611003F016C /* ARAnimateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868905E0187FB611003F016C /* ARAnimateViewController.m */; };
+		868905E4187FB61B003F016C /* ARCutoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868905E3187FB61B003F016C /* ARCutoutViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +43,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8667AE4D187FB88800600654 /* ARAnimationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARAnimationScene.h; sourceTree = "<group>"; };
+		8667AE4E187FB88800600654 /* ARAnimationScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARAnimationScene.m; sourceTree = "<group>"; };
+		8667AE50187FBFE100600654 /* EADrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EADrawView.h; sourceTree = "<group>"; };
+		8667AE51187FBFE100600654 /* EADrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EADrawView.m; sourceTree = "<group>"; };
+		8667AE52187FBFE100600654 /* EAScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAScrollView.h; sourceTree = "<group>"; };
+		8667AE53187FBFE100600654 /* EAScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAScrollView.m; sourceTree = "<group>"; };
+		8667AE58187FC11800600654 /* EALineDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EALineDisplayView.h; sourceTree = "<group>"; };
+		8667AE59187FC11800600654 /* EALineDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EALineDisplayView.m; sourceTree = "<group>"; };
+		8667AE5B187FD99E00600654 /* ARPart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARPart.h; sourceTree = "<group>"; };
+		8667AE5C187FD99E00600654 /* ARPart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARPart.m; sourceTree = "<group>"; };
+		8667AE5F187FEEAD00600654 /* ARReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARReviewViewController.h; sourceTree = "<group>"; };
+		8667AE60187FEEAD00600654 /* ARReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARReviewViewController.m; sourceTree = "<group>"; };
+		8667AE62187FEFE500600654 /* ARMovieComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARMovieComposer.h; sourceTree = "<group>"; };
+		8667AE63187FEFE500600654 /* ARMovieComposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARMovieComposer.m; sourceTree = "<group>"; };
 		868905A3187FB40F003F016C /* Animator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Animator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		868905A6187FB40F003F016C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		868905A8187FB40F003F016C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -45,14 +68,18 @@
 		868905B5187FB40F003F016C /* ARAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARAppDelegate.h; sourceTree = "<group>"; };
 		868905B6187FB40F003F016C /* ARAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARAppDelegate.m; sourceTree = "<group>"; };
 		868905B9187FB40F003F016C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		868905BB187FB40F003F016C /* ARViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARViewController.h; sourceTree = "<group>"; };
-		868905BC187FB40F003F016C /* ARViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARViewController.m; sourceTree = "<group>"; };
 		868905BE187FB40F003F016C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		868905C4187FB40F003F016C /* AnimatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		868905C5187FB40F003F016C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		868905CD187FB40F003F016C /* AnimatorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AnimatorTests-Info.plist"; sourceTree = "<group>"; };
 		868905CF187FB40F003F016C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		868905D1187FB40F003F016C /* AnimatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimatorTests.m; sourceTree = "<group>"; };
+		868905DB187FB5FA003F016C /* ARHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARHomeViewController.h; sourceTree = "<group>"; };
+		868905DC187FB5FA003F016C /* ARHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARHomeViewController.m; sourceTree = "<group>"; };
+		868905DF187FB611003F016C /* ARAnimateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARAnimateViewController.h; sourceTree = "<group>"; };
+		868905E0187FB611003F016C /* ARAnimateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARAnimateViewController.m; sourceTree = "<group>"; };
+		868905E2187FB61B003F016C /* ARCutoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCutoutViewController.h; sourceTree = "<group>"; };
+		868905E3187FB61B003F016C /* ARCutoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARCutoutViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +106,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8667AE56187FBFE800600654 /* Cutout */ = {
+			isa = PBXGroup;
+			children = (
+				868905E2187FB61B003F016C /* ARCutoutViewController.h */,
+				868905E3187FB61B003F016C /* ARCutoutViewController.m */,
+				8667AE50187FBFE100600654 /* EADrawView.h */,
+				8667AE51187FBFE100600654 /* EADrawView.m */,
+				8667AE58187FC11800600654 /* EALineDisplayView.h */,
+				8667AE59187FC11800600654 /* EALineDisplayView.m */,
+				8667AE52187FBFE100600654 /* EAScrollView.h */,
+				8667AE53187FBFE100600654 /* EAScrollView.m */,
+			);
+			name = Cutout;
+			sourceTree = "<group>";
+		};
+		8667AE57187FBFF800600654 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				868905DF187FB611003F016C /* ARAnimateViewController.h */,
+				868905E0187FB611003F016C /* ARAnimateViewController.m */,
+				8667AE4D187FB88800600654 /* ARAnimationScene.h */,
+				8667AE4E187FB88800600654 /* ARAnimationScene.m */,
+			);
+			name = Animation;
+			sourceTree = "<group>";
+		};
+		8667AE5E187FD9A100600654 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8667AE5B187FD99E00600654 /* ARPart.h */,
+				8667AE5C187FD99E00600654 /* ARPart.m */,
+				8667AE62187FEFE500600654 /* ARMovieComposer.h */,
+				8667AE63187FEFE500600654 /* ARMovieComposer.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		8689059A187FB40F003F016C = {
 			isa = PBXGroup;
 			children = (
@@ -115,8 +179,8 @@
 				868905B5187FB40F003F016C /* ARAppDelegate.h */,
 				868905B6187FB40F003F016C /* ARAppDelegate.m */,
 				868905B8187FB40F003F016C /* Main.storyboard */,
-				868905BB187FB40F003F016C /* ARViewController.h */,
-				868905BC187FB40F003F016C /* ARViewController.m */,
+				8667AE5E187FD9A100600654 /* Model */,
+				868905DE187FB5FD003F016C /* View */,
 				868905BE187FB40F003F016C /* Images.xcassets */,
 				868905AD187FB40F003F016C /* Supporting Files */,
 			);
@@ -150,6 +214,19 @@
 				868905CE187FB40F003F016C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		868905DE187FB5FD003F016C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				868905DB187FB5FA003F016C /* ARHomeViewController.h */,
+				868905DC187FB5FA003F016C /* ARHomeViewController.m */,
+				8667AE5F187FEEAD00600654 /* ARReviewViewController.h */,
+				8667AE60187FEEAD00600654 /* ARReviewViewController.m */,
+				8667AE57187FBFF800600654 /* Animation */,
+				8667AE56187FBFE800600654 /* Cutout */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,9 +327,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8667AE61187FEEAD00600654 /* ARReviewViewController.m in Sources */,
+				8667AE4F187FB88800600654 /* ARAnimationScene.m in Sources */,
+				8667AE55187FBFE100600654 /* EAScrollView.m in Sources */,
+				8667AE64187FEFE500600654 /* ARMovieComposer.m in Sources */,
+				868905DD187FB5FA003F016C /* ARHomeViewController.m in Sources */,
+				8667AE5D187FD99E00600654 /* ARPart.m in Sources */,
+				868905E1187FB611003F016C /* ARAnimateViewController.m in Sources */,
 				868905B3187FB40F003F016C /* main.m in Sources */,
-				868905BD187FB40F003F016C /* ARViewController.m in Sources */,
+				8667AE5A187FC11800600654 /* EALineDisplayView.m in Sources */,
 				868905B7187FB40F003F016C /* ARAppDelegate.m in Sources */,
+				868905E4187FB61B003F016C /* ARCutoutViewController.m in Sources */,
+				8667AE54187FBFE100600654 /* EADrawView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +547,7 @@
 				868905D7187FB40F003F016C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		868905D8187FB40F003F016C /* Build configuration list for PBXNativeTarget "AnimatorTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +556,7 @@
 				868905DA187FB40F003F016C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
