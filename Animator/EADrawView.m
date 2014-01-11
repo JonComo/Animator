@@ -130,8 +130,6 @@
     {
         lineResolution = 0;
         
-        NSLog(@"Moving: %f %f", location.x, location.y);
-        
         [currentPath addLineToPoint:location];
         
         if (location.x > maxX) maxX = location.x;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		86196B431880CE260099A7EF /* ARAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 86196B421880CE260099A7EF /* ARAnimation.m */; };
 		8667AE4F187FB88800600654 /* ARAnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE4E187FB88800600654 /* ARAnimationScene.m */; };
 		8667AE54187FBFE100600654 /* EADrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE51187FBFE100600654 /* EADrawView.m */; };
 		8667AE55187FBFE100600654 /* EAScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE53187FBFE100600654 /* EAScrollView.m */; };
@@ -43,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		86196B411880CE260099A7EF /* ARAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARAnimation.h; sourceTree = "<group>"; };
+		86196B421880CE260099A7EF /* ARAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARAnimation.m; sourceTree = "<group>"; };
 		8667AE4D187FB88800600654 /* ARAnimationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARAnimationScene.h; sourceTree = "<group>"; };
 		8667AE4E187FB88800600654 /* ARAnimationScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARAnimationScene.m; sourceTree = "<group>"; };
 		8667AE50187FBFE100600654 /* EADrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EADrawView.h; sourceTree = "<group>"; };
@@ -128,6 +131,8 @@
 				868905E0187FB611003F016C /* ARAnimateViewController.m */,
 				8667AE4D187FB88800600654 /* ARAnimationScene.h */,
 				8667AE4E187FB88800600654 /* ARAnimationScene.m */,
+				86196B411880CE260099A7EF /* ARAnimation.h */,
+				86196B421880CE260099A7EF /* ARAnimation.m */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -329,6 +334,7 @@
 			files = (
 				8667AE61187FEEAD00600654 /* ARReviewViewController.m in Sources */,
 				8667AE4F187FB88800600654 /* ARAnimationScene.m in Sources */,
+				86196B431880CE260099A7EF /* ARAnimation.m in Sources */,
 				8667AE55187FBFE100600654 /* EAScrollView.m in Sources */,
 				8667AE64187FEFE500600654 /* ARMovieComposer.m in Sources */,
 				868905DD187FB5FA003F016C /* ARHomeViewController.m in Sources */,
