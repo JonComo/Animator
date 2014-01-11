@@ -69,7 +69,7 @@ static const uint32_t categoryIgnore = 0x1 << 4;
     //spread about the width
     int count = archived.count;
     for (ARPart *part in archived)
-        part.position = CGPointMake((float)([archived indexOfObject:part]-(float)count/2)/(float)count * self.size.width/2 + self.size.width/2, 40);
+        part.position = CGPointMake((float)([archived indexOfObject:part]-(float)count/2)/(float)count * self.size.width + self.size.width/2 + 40, 40);
 }
 
 -(void)addPart:(ARPart *)part

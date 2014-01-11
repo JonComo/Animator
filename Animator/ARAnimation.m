@@ -128,7 +128,7 @@
     if (!save){
         //delete up to the frame the recording was started at
         
-        NSRange rangeToRemove = NSMakeRange(frameStartedRecording, frames.count-frameStartedRecording-1);
+        NSRange rangeToRemove = NSMakeRange(frameStartedRecording, self.currentFrame-frameStartedRecording);
         
         if (frames.count < rangeToRemove.location + rangeToRemove.length || frames.count == 0) return;
         
@@ -155,6 +155,8 @@
     [frames addObject:frameInfo];
     
     self.currentFrame ++;
+    
+    NSLog(@"Captured frame: %i", self.currentFrame);
 }
 
 -(void)renderCompletion:(RenderBlock)block
