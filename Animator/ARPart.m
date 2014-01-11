@@ -8,20 +8,93 @@
 
 #import "ARPart.h"
 
+#define DOCUMENTS [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]
+
+@interface ARPart () <NSCoding>
+
+@end
+
 @implementation ARPart
 {
     NSMutableArray *frameInfo;
 }
 
--(id)initWithTexture:(SKTexture *)texture
++(ARPart *)partWithImage:(UIImage *)img
 {
-    if (self = [super initWithTexture:texture])
-    {
+    ARPart *part = [[ARPart alloc] initWithTexture:[SKTexture textureWithCGImage:img.CGImage]];
+    part.image = img;
+    part.isNew = YES;
+    return part;
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder]) {
         //init
+        NSLog(@"Init with decoder");
         
+        UIImage *img = [UIImage imageWithData:[aDecoder decodeObjectForKey:@"image"]];
+        self.texture = [SKTexture textureWithCGImage:img.CGImage];
+        self.image = img;
     }
     
     return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder
+{
+    NSLog(@"Encoding with coder");
+    [super encodeWithCoder:aCoder];
+    
+    NSData *imageData = UIImagePNGRepresentation(self.image);
+    if (imageData)
+        [aCoder encodeObject:imageData forKey:@"image"];
+}
+
++(NSArray *)loadParts
+{
+    NSMutableArray *loadedParts = [NSMutableArray array];
+    NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:DOCUMENTS error:nil];
+    
+    for (NSString *filename in filenames)
+    {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", DOCUMENTS, filename]];
+        NSData *fileData = [NSData dataWithContentsOfURL:url];
+        
+        ARPart *part = [NSKeyedUnarchiver unarchiveObjectWithData:fileData];
+        
+        if (part)
+            [loadedParts addObject:part];
+    }
+    
+    return loadedParts;
+}
+
+-(void)save
+{
+    if (!self.isNew) return; //Only archive newly created parts/characters
+    
+    NSURL *unique = [ARPart unique];
+    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
+    [data writeToURL:unique atomically:YES];
+}
+
++(NSURL *)unique
+{
+    NSString *documents = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0];
+    
+    int count = 0;
+    
+    NSURL *URL;
+    
+    do {
+        URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@part%i", documents, count]];
+        
+        count ++;
+    } while ([[NSFileManager defaultManager] fileExistsAtPath:[URL path]]);
+    
+    return URL;
 }
 
 -(void)snapshotAtFrame:(int)frame

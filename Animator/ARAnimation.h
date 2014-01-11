@@ -8,19 +8,38 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^RenderBlock)(NSMutableArray *images);
+
+@class ARAnimationScene;
+@class ARAnimation;
+
+@protocol ARAnimationDelegate <NSObject>
+
+-(void)animationDidStartPlaying:(ARAnimation *)animation;
+-(void)animationDidFinishPlaying:(ARAnimation *)animation;
+
+-(void)animationChangedFrames:(ARAnimation *)animation;
+
+@end
+
 @interface ARAnimation : NSObject
 
-@property int currentFrame;
-@property (nonatomic, weak) NSMutableArray *parts;
+@property (nonatomic, weak) id<ARAnimationDelegate> delegate;
 
-+(ARAnimation *)animation;
+@property int frameLimit;
+@property (nonatomic, assign) int currentFrame;
+@property (nonatomic, weak) ARAnimationScene *scene;
+
++(ARAnimation *)animationWithDelegate:(id<ARAnimationDelegate>)delegate;
 
 -(void)play;
 -(void)stop;
 
+-(void)renderCompletion:(RenderBlock)block;
+
 -(void)startRecording;
 -(void)stopRecordingSave:(BOOL)save;
 
--(void)reset;
+-(void)restart;
 
 @end

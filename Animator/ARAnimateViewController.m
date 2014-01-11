@@ -56,27 +56,28 @@
 
 -(void)cutoutViewController:(ARCutoutViewController *)cutoutVC didPickImage:(UIImage *)image
 {
-    SKTexture *texture = [SKTexture textureWithCGImage:image.CGImage];
-    
-    ARPart *part = [[ARPart alloc] initWithTexture:texture];
+    ARPart *part = [ARPart partWithImage:image];
     
     [scene addPart:part];
 }
 
-- (IBAction)play:(id)sender {
-    [scene play];
+- (IBAction)play:(id)sender
+{
+    [scene.animation play];
 }
 
-- (IBAction)done:(id)sender {
-    [scene renderCompletion:^(NSMutableArray *images) {
-        /*[ARMovieComposer renderImages:images completion:^{
+- (IBAction)done:(id)sender
+{
+    [scene.animation renderCompletion:^(NSMutableArray *images) {
+        /* [ARMovieComposer renderImages:images completion:^{
             NSLog(@"REndered");
         }]; */
     }];
 }
 
-- (IBAction)restart:(id)sender {
-    [scene reset];
+- (IBAction)restart:(id)sender
+{
+    [scene restart];
 }
 
 - (IBAction)addCharacter:(id)sender
@@ -88,7 +89,10 @@
     [self presentViewController:cutoutVC animated:YES completion:nil];
 }
 
-- (IBAction)cancel:(id)sender {
+- (IBAction)cancel:(id)sender
+{
+    [scene archiveParts];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -7,19 +7,17 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "ARAnimation.h"
 #import "ARPart.h"
-
-typedef void (^RenderBlock)(NSMutableArray *images);
 
 @interface ARAnimationScene : SKScene
 
-@property int currentFrame;
+@property (nonatomic, strong) NSMutableArray *parts;
+@property (nonatomic, strong) ARAnimation *animation;
 
 -(void)addPart:(ARPart *)part;
+-(void)archiveParts;
 
--(void)play;
--(void)reset;
-
--(void)renderCompletion:(RenderBlock)block;
+-(void)restart;
 
 @end

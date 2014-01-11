@@ -7,6 +7,7 @@
 //
 
 #import "ARAnimation.h"
+#import "ARAnimationScene.h"
 #import "ARPart.h"
 
 @implementation ARAnimation
@@ -15,6 +16,13 @@
     NSTimer *timerPlay;
     
     NSMutableArray *frames;
+    
+    int frameStartedRecording;
+    
+    //Rendering
+    RenderBlock _renderBlock;
+    NSMutableArray *renderImages;
+    BOOL isRendering;
 }
 
 -(id)init
@@ -22,14 +30,17 @@
     if (self = [super init]) {
         //init
         _currentFrame = 0;
+        _frameLimit = 240;
     }
     
     return self;
 }
 
-+(ARAnimation *)animation
++(ARAnimation *)animationWithDelegate:(id<ARAnimationDelegate>)delegate
 {
     ARAnimation *animation = [[ARAnimation alloc] init];
+    
+    animation.delegate = delegate;
     
     return animation;
 }
@@ -42,6 +53,8 @@
     timerPlay = [NSTimer scheduledTimerWithTimeInterval:1.0f/24.0f target:self selector:@selector(layoutNextFrame) userInfo:nil repeats:YES];
     
     [self layoutFrame:0];
+    
+    [self.delegate animationDidStartPlaying:self];
 }
 
 -(void)stop
@@ -49,7 +62,13 @@
     [timerPlay invalidate];
     timerPlay = nil;
     
-    [self layoutFrame:0];
+    if (isRendering)
+    {
+        isRendering = NO;
+        if (_renderBlock) _renderBlock(renderImages);
+    }
+    
+    [self.delegate animationDidFinishPlaying:self];
 }
 
 -(void)layoutNextFrame
@@ -61,22 +80,30 @@
 
 -(void)layoutFrame:(int)frame
 {
-    if (frame < 0 || frame > frames.count)
-    {
+    if (frame < 0 || frame > frames.count-1 || frames.count == 0){
         //reached end
         [self stop];
         return;
     }
     
+    //Place each part in bin incase theres no recorded data for them
+    for (ARPart *part in self.scene.parts){
+        part.position = CGPointMake(part.position.x, 40);
+    }
+    
     NSMutableArray *frameInfo = frames[frame];
-    for (NSDictionary *info in frameInfo)
-    {
+    
+    for (NSDictionary *info in frameInfo){
         ARPart *part = info[@"part"];
         part.position = [info[@"p"] CGPointValue];
         part.zRotation = [info[@"r"] floatValue];
     }
     
     self.currentFrame = frame;
+    
+    if (isRendering){
+        [self renderCurrentFrame];
+    }
 }
 
 -(void)startRecording
@@ -88,6 +115,8 @@
     
     timerRecord = [NSTimer scheduledTimerWithTimeInterval:1.0f/24.0f target:self selector:@selector(snapshot) userInfo:nil repeats:YES];
     
+    frameStartedRecording = self.currentFrame;
+    
     [self snapshot];
 }
 
@@ -95,13 +124,25 @@
 {
     [timerRecord invalidate];
     timerRecord = nil;
+    
+    if (!save){
+        //delete up to the frame the recording was started at
+        
+        NSRange rangeToRemove = NSMakeRange(frameStartedRecording, frames.count-frameStartedRecording-1);
+        
+        if (frames.count < rangeToRemove.location + rangeToRemove.length || frames.count == 0) return;
+        
+        [frames removeObjectsInRange:rangeToRemove];
+        self.currentFrame = frameStartedRecording;
+        [self layoutFrame:self.currentFrame];
+    }
 }
 
 -(void)snapshot
 {
     NSMutableArray *frameInfo = [NSMutableArray array];
     
-    for (ARPart *part in self.parts)
+    for (ARPart *part in self.scene.parts)
     {
         NSValue *position = [NSValue valueWithCGPoint:part.position];
         NSNumber *rotation = @(part.zRotation);
@@ -116,10 +157,39 @@
     self.currentFrame ++;
 }
 
--(void)reset
+-(void)renderCompletion:(RenderBlock)block
+{
+    _renderBlock = block;
+    isRendering = YES;
+    
+    [self play];
+}
+
+-(void)renderCurrentFrame
+{
+    if (!renderImages) renderImages = [NSMutableArray array];
+    [renderImages removeAllObjects];
+    
+    //Render image
+    UIGraphicsBeginImageContext(CGSizeMake(320, 320));
+    
+    [self.scene.view drawViewHierarchyInRect:CGRectMake(0, 0, 320, 400) afterScreenUpdates:YES];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    [renderImages addObject:image];
+}
+
+-(void)restart
 {
     self.currentFrame = 0;
     [frames removeAllObjects];
+}
+
+-(void)setCurrentFrame:(int)currentFrame
+{
+    _currentFrame = currentFrame;
+    [self.delegate animationChangedFrames:self];
 }
 
 @end

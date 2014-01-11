@@ -29,6 +29,7 @@
     if (!imageView)
     {
         imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:imageView];
         
         self.viewPaths = [[EALineDisplayView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
