@@ -21,12 +21,10 @@
 {
     NSLog(@"Write Started");
     
-    NSURL *URL = [[NSURL uniqueWithName:@"movie" inDirectory:MOV_DIR] URLByAppendingPathExtension:@"mp4"];
+    NSURL *URL = [NSURL uniqueWithName:@"movie.mp4" inDirectory:MOV_DIR];
     
-    CGSize size = ({
-        UIImage *image = images[0];
-        image.size;
-    });
+    UIImage *image = images[0];
+    CGSize size = image.size;
     
     NSError *error = nil;
     
@@ -50,7 +48,7 @@
     
     NSParameterAssert(videoWriterInput);
     NSParameterAssert([videoWriter canAddInput:videoWriterInput]);
-    videoWriterInput.expectsMediaDataInRealTime = NO;
+    videoWriterInput.expectsMediaDataInRealTime = YES;
     [videoWriter addInput:videoWriterInput];
     
     //Start a session:

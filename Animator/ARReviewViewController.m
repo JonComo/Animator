@@ -25,6 +25,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
     player = [[MPMoviePlayerController alloc] initWithContentURL:self.URL];
     player.view.frame = CGRectMake(0, 0, 320, 320);
     [self.view addSubview:player.view];

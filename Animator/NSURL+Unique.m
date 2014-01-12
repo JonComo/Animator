@@ -20,8 +20,13 @@
     int count = 0;
     NSURL *URL;
     
+    NSString *extension = [name pathExtension];
+    if (extension){
+        name = [name stringByDeletingPathExtension];
+    }
+    
     do {
-        URL = [directory URLByAppendingPathComponent:[NSString stringWithFormat:@"%@%i", name, count]];
+        URL = [directory URLByAppendingPathComponent:[NSString stringWithFormat:@"%@%i%@", name, count, extension ? [NSString stringWithFormat:@".%@", extension] : @""]];
         count ++;
     } while ([[NSFileManager defaultManager] fileExistsAtPath:[URL path]]);
     
