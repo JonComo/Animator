@@ -9,6 +9,7 @@
 #import "ARAnimateViewController.h"
 
 #import "ARCharactersViewController.h"
+#import "ARReviewViewController.h"
 
 #import "ARMovieComposer.h"
 
@@ -63,9 +64,11 @@
 - (IBAction)done:(id)sender
 {
     [scene.animation renderCompletion:^(NSMutableArray *images) {
-        /* [ARMovieComposer renderImages:images completion:^{
-            NSLog(@"REndered");
-        }]; */
+        [ARMovieComposer renderImages:images completion:^(NSURL *URL) {
+            ARReviewViewController *reviewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"reviewVC"];
+            reviewVC.URL = URL;
+            [self presentViewController:reviewVC animated:YES completion:nil];
+        }];
     }];
 }
 

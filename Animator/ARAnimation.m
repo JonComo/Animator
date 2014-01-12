@@ -149,14 +149,14 @@
     _renderBlock = block;
     isRendering = YES;
     
+    if (!renderImages) renderImages = [NSMutableArray array];
+    [renderImages removeAllObjects];
+    
     [self play];
 }
 
 -(void)renderCurrentFrame
 {
-    if (!renderImages) renderImages = [NSMutableArray array];
-    [renderImages removeAllObjects];
-    
     //Render image
     UIGraphicsBeginImageContext(CGSizeMake(320, 320));
     [self.scene.view drawViewHierarchyInRect:CGRectMake(0, 0, 320, 320) afterScreenUpdates:YES];

@@ -26,7 +26,7 @@
 +(NSMutableArray *)loadAll
 {
     NSMutableArray *loadedImages = [NSMutableArray array];
-    NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:IMG_DIR error:nil];
+    NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[IMG_DIR path] error:nil];
     
     for (NSString *filename in filenames)
     {

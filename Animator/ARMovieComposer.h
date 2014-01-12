@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^RenderMovieBlock)(NSURL *URL);
+
 @interface ARMovieComposer : NSObject
 
-+(void)renderImages:(NSArray *)images completion:(void(^)(void))block;
++(void)renderImages:(NSArray *)images completion:(RenderMovieBlock)block;
 
 @end

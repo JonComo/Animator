@@ -17,11 +17,11 @@
 
 @implementation ARMovieComposer
 
-+(void)renderImages:(NSArray *)images completion:(void (^)(void))block
++(void)renderImages:(NSArray *)images completion:(RenderMovieBlock)block
 {
     NSLog(@"Write Started");
     
-    NSURL *URL = [NSURL uniqueWithName:@"movie" inDirectory:MOV_DIR];
+    NSURL *URL = [[NSURL uniqueWithName:@"movie" inDirectory:MOV_DIR] URLByAppendingPathExtension:@"mp4"];
     
     CGSize size = ({
         UIImage *image = images[0];
@@ -50,59 +50,65 @@
     
     NSParameterAssert(videoWriterInput);
     NSParameterAssert([videoWriter canAddInput:videoWriterInput]);
-    videoWriterInput.expectsMediaDataInRealTime = YES;
+    videoWriterInput.expectsMediaDataInRealTime = NO;
     [videoWriter addInput:videoWriterInput];
     
     //Start a session:
     [videoWriter startWriting];
     [videoWriter startSessionAtSourceTime:kCMTimeZero];
     
-    CVPixelBufferRef buffer = NULL;
-    
-    //convert uiimage to CGImage.
-    
-    int frameCount = 1;
-    int kRecordingFPS = 24;
-    
-    for (UIImage *img in images)
-    {
-        buffer = [self pixelBufferFromCGImage:img.CGImage withSize:img.size];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         
-        BOOL append_ok = NO;
-        int j = 0;
-        while (!append_ok && j < 30)
+        int frameCount = 1;
+        int kRecordingFPS = 24;
+        CVPixelBufferRef buffer = NULL;
+        
+        for (UIImage *img in images)
         {
-            if (adaptor.assetWriterInput.readyForMoreMediaData)
+            buffer = [self pixelBufferFromCGImage:img.CGImage withSize:img.size];
+            
+            BOOL append_ok = NO;
+            int j = 0;
+            while (!append_ok && j < 30)
             {
-                printf("appending %d attemp %d\n", frameCount, j);
+                if (adaptor.assetWriterInput.readyForMoreMediaData)
+                {
+                    printf("appending %d attemp %d\n", frameCount, j);
+                    
+                    CMTime frameTime = CMTimeMake(frameCount,(int32_t) kRecordingFPS);
+                    append_ok = [adaptor appendPixelBuffer:buffer withPresentationTime:frameTime];
+                    
+                    if(buffer)
+                        CVBufferRelease(buffer);
+                    
+                    [NSThread sleepForTimeInterval:0.05];
+                }
+                else
+                {
+                    printf("adaptor not ready %d, %d\n", frameCount, j);
+                    [NSThread sleepForTimeInterval:0.1];
+                }
                 
-                CMTime frameTime = CMTimeMake(frameCount,(int32_t) kRecordingFPS);
-                append_ok = [adaptor appendPixelBuffer:buffer withPresentationTime:frameTime];
-                
-                if(buffer)
-                    CVBufferRelease(buffer);
-                [NSThread sleepForTimeInterval:0.05];
+                j++;
             }
-            else
-            {
-                printf("adaptor not ready %d, %d\n", frameCount, j);
-                [NSThread sleepForTimeInterval:0.1];
+            
+            if (!append_ok) {
+                printf("error appending image %d times %d\n", frameCount, j);
             }
-            j++;
+            
+            frameCount++;
         }
-        if (!append_ok) {
-            printf("error appending image %d times %d\n", frameCount, j);
-        }
-        frameCount++;
-    }
-    
-    
-    //Finish the session:
-    [videoWriterInput markAsFinished];
-    [videoWriter finishWriting];
-    NSLog(@"Write Ended");
-    
-    if (block) block();
+        
+        
+        //Finish the session:
+        [videoWriterInput markAsFinished];
+        [videoWriter finishWriting];
+        NSLog(@"Write Ended");
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (block) block(URL);
+        });
+    });
 }
 
 /*

@@ -10,4 +10,6 @@
 
 @interface ARReviewViewController : UIViewController
 
+@property (nonatomic, strong) NSURL *URL;
+
 @end

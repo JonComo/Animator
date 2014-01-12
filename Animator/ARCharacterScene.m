@@ -75,6 +75,15 @@ static const uint32_t categoryPart = 0x1 << 3;
     for (SKPhysicsJointPin *pin in lastAdded.physicsBody.joints)
         [self.physicsWorld removeJoint:pin];
     
+    NSMutableArray *pinsToRemove = [NSMutableArray array];
+    for (ARPinJoint *pin in joints){
+        if (pin.partA == lastAdded || pin.partB == lastAdded){
+            [pinsToRemove addObject:pin];
+        }
+    }
+    
+    [joints removeObjectsInArray:pinsToRemove];
+    
     [parts removeObject:lastAdded];
     [lastAdded removeFromParent];
 }
