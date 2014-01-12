@@ -50,6 +50,8 @@
     [timerPlay invalidate];
     timerPlay = nil;
     
+    if (frames.count == 0) return;
+    
     timerPlay = [NSTimer scheduledTimerWithTimeInterval:1.0f/24.0f target:self selector:@selector(layoutNextFrame) userInfo:nil repeats:YES];
     
     [self layoutFrame:0];
@@ -125,6 +127,7 @@
     [timerRecord invalidate];
     timerRecord = nil;
     
+    /*
     if (!save){
         //delete up to the frame the recording was started at
         
@@ -135,7 +138,7 @@
         [frames removeObjectsInRange:rangeToRemove];
         self.currentFrame = frameStartedRecording;
         [self layoutFrame:self.currentFrame];
-    }
+    }*/
 }
 
 -(void)snapshot

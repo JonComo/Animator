@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "ARAnimationScene.h"
+
 @interface ARAnimateViewController : UIViewController
 
 @end

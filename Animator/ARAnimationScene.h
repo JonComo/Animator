@@ -16,8 +16,6 @@
 @property (nonatomic, strong) ARAnimation *animation;
 
 -(void)addPart:(ARPart *)part;
--(void)archiveParts;
-
 -(void)restart;
 
 @end

@@ -13,15 +13,5 @@
 @property (nonatomic, strong) UIImage *image;
 
 +(ARPart *)partWithImage:(UIImage *)img;
-@property BOOL isNew;
-
-+(NSArray *)loadParts;
--(void)save;
-
--(void)snapshotAtFrame:(int)frame;
--(void)layoutForFrame:(int)frame;
-
--(void)removeFramesInRange:(NSRange)range;
--(void)removeAllFrames;
 
 @end

@@ -7,11 +7,12 @@
 //
 
 #import "ARAnimateViewController.h"
-#import "ARCutoutViewController.h"
-#import "ARAnimationScene.h"
+
+#import "ARCharacterCreatorViewController.h"
+
 #import "ARMovieComposer.h"
 
-@interface ARAnimateViewController () <ARCutoutViewControllerDelegate>
+@interface ARAnimateViewController () <ARCharacterCreatorViewControllerDelegate>
 {
     ARAnimationScene *scene;
     
@@ -29,7 +30,7 @@
 	// Do any additional setup after loading the view.
     
     //Load scene
-    scene = [[ARAnimationScene alloc] initWithSize:CGSizeMake(320, 400)];
+    scene = [[ARAnimationScene alloc] initWithSize:CGSizeMake(320, 320)];
     scene.scaleMode = SKSceneScaleModeAspectFit;
     [sceneView presentScene:scene];
 }
@@ -54,13 +55,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)cutoutViewController:(ARCutoutViewController *)cutoutVC didPickImage:(UIImage *)image
-{
-    ARPart *part = [ARPart partWithImage:image];
-    
-    [scene addPart:part];
-}
-
 - (IBAction)play:(id)sender
 {
     [scene.animation play];
@@ -82,17 +76,21 @@
 
 - (IBAction)addCharacter:(id)sender
 {
-    ARCutoutViewController *cutoutVC = [self.storyboard instantiateViewControllerWithIdentifier:@"cutoutVC"];
+    ARCharacterCreatorViewController *characterVC = [self.storyboard instantiateViewControllerWithIdentifier:@"characterVC"];
     
-    cutoutVC.delegate = self;
+    characterVC.delegate = self;
     
-    [self presentViewController:cutoutVC animated:YES completion:nil];
+    [self presentViewController:characterVC animated:YES completion:nil];
+}
+
+-(void)characterCreator:(ARCharacterCreatorViewController *)characterVC createdCharacter:(ARCharacter *)character
+{
+    //Add it
+    [character spawnInScene:scene];
 }
 
 - (IBAction)cancel:(id)sender
 {
-    [scene archiveParts];
-    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

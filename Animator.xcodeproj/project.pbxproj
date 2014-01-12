@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8609108F188217C9009CCEF9 /* ARCharacterCreatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8609108E188217C9009CCEF9 /* ARCharacterCreatorViewController.m */; };
+		8609109318822489009CCEF9 /* ARCharacterScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8609109218822489009CCEF9 /* ARCharacterScene.m */; };
+		860910961882253A009CCEF9 /* UIImage+Save.m in Sources */ = {isa = PBXBuildFile; fileRef = 860910951882253A009CCEF9 /* UIImage+Save.m */; };
+		8609109918823440009CCEF9 /* ARCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8609109818823440009CCEF9 /* ARCharacter.m */; };
+		8609109D18823F34009CCEF9 /* ARPinJoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 8609109C18823F34009CCEF9 /* ARPinJoint.m */; };
+		860910A0188240F6009CCEF9 /* JCMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 8609109F188240F6009CCEF9 /* JCMath.m */; };
+		860910A418824706009CCEF9 /* NSURL+Unique.m in Sources */ = {isa = PBXBuildFile; fileRef = 860910A318824706009CCEF9 /* NSURL+Unique.m */; };
 		86196B431880CE260099A7EF /* ARAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 86196B421880CE260099A7EF /* ARAnimation.m */; };
 		8667AE4F187FB88800600654 /* ARAnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE4E187FB88800600654 /* ARAnimationScene.m */; };
 		8667AE54187FBFE100600654 /* EADrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE51187FBFE100600654 /* EADrawView.m */; };
@@ -44,6 +51,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8609108D188217C9009CCEF9 /* ARCharacterCreatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCharacterCreatorViewController.h; sourceTree = "<group>"; };
+		8609108E188217C9009CCEF9 /* ARCharacterCreatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARCharacterCreatorViewController.m; sourceTree = "<group>"; };
+		8609109118822489009CCEF9 /* ARCharacterScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCharacterScene.h; sourceTree = "<group>"; };
+		8609109218822489009CCEF9 /* ARCharacterScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARCharacterScene.m; sourceTree = "<group>"; };
+		860910941882253A009CCEF9 /* UIImage+Save.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Save.h"; sourceTree = "<group>"; };
+		860910951882253A009CCEF9 /* UIImage+Save.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Save.m"; sourceTree = "<group>"; };
+		8609109718823440009CCEF9 /* ARCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCharacter.h; sourceTree = "<group>"; };
+		8609109818823440009CCEF9 /* ARCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARCharacter.m; sourceTree = "<group>"; };
+		8609109B18823F34009CCEF9 /* ARPinJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARPinJoint.h; sourceTree = "<group>"; };
+		8609109C18823F34009CCEF9 /* ARPinJoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARPinJoint.m; sourceTree = "<group>"; };
+		8609109E188240F6009CCEF9 /* JCMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCMath.h; sourceTree = "<group>"; };
+		8609109F188240F6009CCEF9 /* JCMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCMath.m; sourceTree = "<group>"; };
+		860910A218824706009CCEF9 /* NSURL+Unique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Unique.h"; sourceTree = "<group>"; };
+		860910A318824706009CCEF9 /* NSURL+Unique.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Unique.m"; sourceTree = "<group>"; };
 		86196B411880CE260099A7EF /* ARAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARAnimation.h; sourceTree = "<group>"; };
 		86196B421880CE260099A7EF /* ARAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARAnimation.m; sourceTree = "<group>"; };
 		8667AE4D187FB88800600654 /* ARAnimationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARAnimationScene.h; sourceTree = "<group>"; };
@@ -109,6 +130,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		860910901882240E009CCEF9 /* Character */ = {
+			isa = PBXGroup;
+			children = (
+				8609108D188217C9009CCEF9 /* ARCharacterCreatorViewController.h */,
+				8609108E188217C9009CCEF9 /* ARCharacterCreatorViewController.m */,
+				8609109118822489009CCEF9 /* ARCharacterScene.h */,
+				8609109218822489009CCEF9 /* ARCharacterScene.m */,
+			);
+			name = Character;
+			sourceTree = "<group>";
+		};
+		8609109A18823488009CCEF9 /* Character Model */ = {
+			isa = PBXGroup;
+			children = (
+				8609109718823440009CCEF9 /* ARCharacter.h */,
+				8609109818823440009CCEF9 /* ARCharacter.m */,
+				8667AE5B187FD99E00600654 /* ARPart.h */,
+				8667AE5C187FD99E00600654 /* ARPart.m */,
+				8609109B18823F34009CCEF9 /* ARPinJoint.h */,
+				8609109C18823F34009CCEF9 /* ARPinJoint.m */,
+			);
+			name = "Character Model";
+			sourceTree = "<group>";
+		};
+		860910A1188246ED009CCEF9 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				860910941882253A009CCEF9 /* UIImage+Save.h */,
+				860910951882253A009CCEF9 /* UIImage+Save.m */,
+				860910A218824706009CCEF9 /* NSURL+Unique.h */,
+				860910A318824706009CCEF9 /* NSURL+Unique.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		8667AE56187FBFE800600654 /* Cutout */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,8 +187,6 @@
 				868905E0187FB611003F016C /* ARAnimateViewController.m */,
 				8667AE4D187FB88800600654 /* ARAnimationScene.h */,
 				8667AE4E187FB88800600654 /* ARAnimationScene.m */,
-				86196B411880CE260099A7EF /* ARAnimation.h */,
-				86196B421880CE260099A7EF /* ARAnimation.m */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -140,8 +194,10 @@
 		8667AE5E187FD9A100600654 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8667AE5B187FD99E00600654 /* ARPart.h */,
-				8667AE5C187FD99E00600654 /* ARPart.m */,
+				860910A1188246ED009CCEF9 /* Categories */,
+				8609109A18823488009CCEF9 /* Character Model */,
+				86196B411880CE260099A7EF /* ARAnimation.h */,
+				86196B421880CE260099A7EF /* ARAnimation.m */,
 				8667AE62187FEFE500600654 /* ARMovieComposer.h */,
 				8667AE63187FEFE500600654 /* ARMovieComposer.m */,
 			);
@@ -170,6 +226,8 @@
 		868905A5187FB40F003F016C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8609109E188240F6009CCEF9 /* JCMath.h */,
+				8609109F188240F6009CCEF9 /* JCMath.m */,
 				868905A6187FB40F003F016C /* Foundation.framework */,
 				868905A8187FB40F003F016C /* CoreGraphics.framework */,
 				868905AA187FB40F003F016C /* UIKit.framework */,
@@ -228,6 +286,7 @@
 				868905DC187FB5FA003F016C /* ARHomeViewController.m */,
 				8667AE5F187FEEAD00600654 /* ARReviewViewController.h */,
 				8667AE60187FEEAD00600654 /* ARReviewViewController.m */,
+				860910901882240E009CCEF9 /* Character */,
 				8667AE57187FBFF800600654 /* Animation */,
 				8667AE56187FBFE800600654 /* Cutout */,
 			);
@@ -335,16 +394,23 @@
 				8667AE61187FEEAD00600654 /* ARReviewViewController.m in Sources */,
 				8667AE4F187FB88800600654 /* ARAnimationScene.m in Sources */,
 				86196B431880CE260099A7EF /* ARAnimation.m in Sources */,
+				8609109D18823F34009CCEF9 /* ARPinJoint.m in Sources */,
 				8667AE55187FBFE100600654 /* EAScrollView.m in Sources */,
+				860910961882253A009CCEF9 /* UIImage+Save.m in Sources */,
 				8667AE64187FEFE500600654 /* ARMovieComposer.m in Sources */,
 				868905DD187FB5FA003F016C /* ARHomeViewController.m in Sources */,
 				8667AE5D187FD99E00600654 /* ARPart.m in Sources */,
+				8609109318822489009CCEF9 /* ARCharacterScene.m in Sources */,
 				868905E1187FB611003F016C /* ARAnimateViewController.m in Sources */,
 				868905B3187FB40F003F016C /* main.m in Sources */,
+				8609109918823440009CCEF9 /* ARCharacter.m in Sources */,
 				8667AE5A187FC11800600654 /* EALineDisplayView.m in Sources */,
+				8609108F188217C9009CCEF9 /* ARCharacterCreatorViewController.m in Sources */,
 				868905B7187FB40F003F016C /* ARAppDelegate.m in Sources */,
 				868905E4187FB61B003F016C /* ARCutoutViewController.m in Sources */,
+				860910A0188240F6009CCEF9 /* JCMath.m in Sources */,
 				8667AE54187FBFE100600654 /* EADrawView.m in Sources */,
+				860910A418824706009CCEF9 /* NSURL+Unique.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +537,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jon Como (XW4CN723TL)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Animator/Animator-Prefix.pch";
 				INFOPLIST_FILE = "Animator/Animator-Info.plist";
@@ -484,6 +551,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jon Como (XW4CN723TL)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Animator/Animator-Prefix.pch";
 				INFOPLIST_FILE = "Animator/Animator-Info.plist";
