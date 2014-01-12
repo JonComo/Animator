@@ -26,6 +26,29 @@
     return joint;
 }
 
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder]) {
+        //init
+        _distance = [aDecoder decodeFloatForKey:@"distance"];
+        _rotation = [aDecoder decodeFloatForKey:@"rotation"];
+        
+        _partA = [aDecoder decodeObjectForKey:@"partA"];
+        _partB = [aDecoder decodeObjectForKey:@"partB"];
+    }
+    
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeFloat:self.distance forKey:@"distance"];
+    [aCoder encodeFloat:self.rotation forKey:@"rotation"];
+    
+    [aCoder encodeObject:self.partA forKey:@"partA"];
+    [aCoder encodeObject:self.partB forKey:@"partB"];
+}
+
 -(CGPoint)newAnchor
 {
     CGPoint anchor = [JCMath pointFromPoint:self.partA.position pushedBy:self.distance inDirection:self.rotation + self.partA.zRotation];

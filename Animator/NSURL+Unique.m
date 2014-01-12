@@ -14,6 +14,9 @@
 
 +(NSURL *)uniqueWithName:(NSString *)name inDirectory:(NSURL *)directory
 {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[directory path]])
+        [[NSFileManager defaultManager] createDirectoryAtURL:directory withIntermediateDirectories:NO attributes:nil error:nil];
+    
     int count = 0;
     NSURL *URL;
     

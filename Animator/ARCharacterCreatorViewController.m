@@ -84,6 +84,14 @@
 {    
     ARCharacter *character = [sceneCharacter character];
     
+    //Render image
+    UIGraphicsBeginImageContext(CGSizeMake(320, 320));
+    [viewScene drawViewHierarchyInRect:CGRectMake(0, 0, 320, 320) afterScreenUpdates:YES];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [character saveWithThumbnail:image];
+    
     [self.delegate characterCreator:self createdCharacter:character];
     
     [self dismissViewControllerAnimated:YES completion:nil];

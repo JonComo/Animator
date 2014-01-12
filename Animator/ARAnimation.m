@@ -88,11 +88,6 @@
         return;
     }
     
-    //Place each part in bin incase theres no recorded data for them
-    for (ARPart *part in self.scene.parts){
-        part.position = CGPointMake(part.position.x, 40);
-    }
-    
     NSMutableArray *frameInfo = frames[frame];
     
     for (NSDictionary *info in frameInfo){
@@ -126,19 +121,6 @@
 {
     [timerRecord invalidate];
     timerRecord = nil;
-    
-    /*
-    if (!save){
-        //delete up to the frame the recording was started at
-        
-        NSRange rangeToRemove = NSMakeRange(frameStartedRecording, self.currentFrame-frameStartedRecording);
-        
-        if (frames.count < rangeToRemove.location + rangeToRemove.length || frames.count == 0) return;
-        
-        [frames removeObjectsInRange:rangeToRemove];
-        self.currentFrame = frameStartedRecording;
-        [self layoutFrame:self.currentFrame];
-    }*/
 }
 
 -(void)snapshot
@@ -177,12 +159,25 @@
     
     //Render image
     UIGraphicsBeginImageContext(CGSizeMake(320, 320));
-    
-    [self.scene.view drawViewHierarchyInRect:CGRectMake(0, 0, 320, 400) afterScreenUpdates:YES];
-    
+    [self.scene.view drawViewHierarchyInRect:CGRectMake(0, 0, 320, 320) afterScreenUpdates:YES];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
     [renderImages addObject:image];
+}
+
+-(void)undo
+{
+    //delete up to the frame the recording was started at
+
+    NSRange rangeToRemove = NSMakeRange(frameStartedRecording, self.currentFrame-frameStartedRecording);
+
+    if (frames.count < rangeToRemove.location + rangeToRemove.length || frames.count == 0) return;
+
+    [frames removeObjectsInRange:rangeToRemove];
+    self.currentFrame = frameStartedRecording;
+    
+    [self layoutFrame:self.currentFrame];
 }
 
 -(void)restart

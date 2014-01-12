@@ -16,9 +16,6 @@
 
 +(void)saveImage:(UIImage *)image
 {
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[IMG_DIR path]])
-        [[NSFileManager defaultManager] createDirectoryAtURL:IMG_DIR withIntermediateDirectories:NO attributes:nil error:nil];
-    
     NSURL *URL = [NSURL uniqueWithName:@"image" inDirectory:IMG_DIR];
     
     NSData *data = UIImagePNGRepresentation(image);

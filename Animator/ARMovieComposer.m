@@ -8,12 +8,104 @@
 
 #import "ARMovieComposer.h"
 
+#import "NSURL+Unique.h"
+
 #define DOCUMENTS [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]
+#define MOV_DIR [DOCUMENTS URLByAppendingPathComponent:@"movies"]
 
 @import AVFoundation;
 
 @implementation ARMovieComposer
 
++(void)renderImages:(NSArray *)images completion:(void (^)(void))block
+{
+    NSLog(@"Write Started");
+    
+    NSURL *URL = [NSURL uniqueWithName:@"movie" inDirectory:MOV_DIR];
+    
+    CGSize size = ({
+        UIImage *image = images[0];
+        image.size;
+    });
+    
+    NSError *error = nil;
+    
+    AVAssetWriter *videoWriter = [[AVAssetWriter alloc] initWithURL:URL fileType:AVFileTypeQuickTimeMovie error:&error];
+    NSParameterAssert(videoWriter);
+    
+    NSDictionary *videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   AVVideoCodecH264, AVVideoCodecKey,
+                                   [NSNumber numberWithInt:size.width], AVVideoWidthKey,
+                                   [NSNumber numberWithInt:size.height], AVVideoHeightKey,
+                                   nil];
+    
+    AVAssetWriterInput *videoWriterInput = [AVAssetWriterInput
+                                             assetWriterInputWithMediaType:AVMediaTypeVideo
+                                             outputSettings:videoSettings];
+    
+    
+    AVAssetWriterInputPixelBufferAdaptor *adaptor = [AVAssetWriterInputPixelBufferAdaptor
+                                                     assetWriterInputPixelBufferAdaptorWithAssetWriterInput:videoWriterInput
+                                                     sourcePixelBufferAttributes:nil];
+    
+    NSParameterAssert(videoWriterInput);
+    NSParameterAssert([videoWriter canAddInput:videoWriterInput]);
+    videoWriterInput.expectsMediaDataInRealTime = YES;
+    [videoWriter addInput:videoWriterInput];
+    
+    //Start a session:
+    [videoWriter startWriting];
+    [videoWriter startSessionAtSourceTime:kCMTimeZero];
+    
+    CVPixelBufferRef buffer = NULL;
+    
+    //convert uiimage to CGImage.
+    
+    int frameCount = 1;
+    int kRecordingFPS = 24;
+    
+    for (UIImage *img in images)
+    {
+        buffer = [self pixelBufferFromCGImage:img.CGImage withSize:img.size];
+        
+        BOOL append_ok = NO;
+        int j = 0;
+        while (!append_ok && j < 30)
+        {
+            if (adaptor.assetWriterInput.readyForMoreMediaData)
+            {
+                printf("appending %d attemp %d\n", frameCount, j);
+                
+                CMTime frameTime = CMTimeMake(frameCount,(int32_t) kRecordingFPS);
+                append_ok = [adaptor appendPixelBuffer:buffer withPresentationTime:frameTime];
+                
+                if(buffer)
+                    CVBufferRelease(buffer);
+                [NSThread sleepForTimeInterval:0.05];
+            }
+            else
+            {
+                printf("adaptor not ready %d, %d\n", frameCount, j);
+                [NSThread sleepForTimeInterval:0.1];
+            }
+            j++;
+        }
+        if (!append_ok) {
+            printf("error appending image %d times %d\n", frameCount, j);
+        }
+        frameCount++;
+    }
+    
+    
+    //Finish the session:
+    [videoWriterInput markAsFinished];
+    [videoWriter finishWriting];
+    NSLog(@"Write Ended");
+    
+    if (block) block();
+}
+
+/*
 +(void)renderImages:(NSArray *)images completion:(void (^)(void))block
 {
     NSLog(@"Write Started");
@@ -102,7 +194,7 @@
     
     NSLog(@"Write Ended"); 
 }
-
+*/
 /*
 -(void)CompileFilesToMakeMovie
 {

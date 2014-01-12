@@ -11,7 +11,7 @@
 
 @class ARAnimationScene;
 
-@interface ARCharacter : NSObject
+@interface ARCharacter : NSObject <NSCoding>
 
 @property (nonatomic, strong) UIImage *thumbnail;
 @property (nonatomic, strong) NSMutableArray *parts;
@@ -19,7 +19,7 @@
 
 -(void)spawnInScene:(ARAnimationScene *)scene;
 
--(NSArray *)loadAll;
++(NSMutableArray *)loadAll;
 -(void)saveWithThumbnail:(UIImage *)image;
 
 @end

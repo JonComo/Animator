@@ -8,11 +8,11 @@
 
 #import "ARAnimateViewController.h"
 
-#import "ARCharacterCreatorViewController.h"
+#import "ARCharactersViewController.h"
 
 #import "ARMovieComposer.h"
 
-@interface ARAnimateViewController () <ARCharacterCreatorViewControllerDelegate>
+@interface ARAnimateViewController () <ARCharactersViewControllerDelegate>
 {
     ARAnimationScene *scene;
     
@@ -74,16 +74,21 @@
     [scene restart];
 }
 
-- (IBAction)addCharacter:(id)sender
+- (IBAction)undo:(id)sender
 {
-    ARCharacterCreatorViewController *characterVC = [self.storyboard instantiateViewControllerWithIdentifier:@"characterVC"];
-    
-    characterVC.delegate = self;
-    
-    [self presentViewController:characterVC animated:YES completion:nil];
+    [scene.animation undo];
 }
 
--(void)characterCreator:(ARCharacterCreatorViewController *)characterVC createdCharacter:(ARCharacter *)character
+- (IBAction)addCharacter:(id)sender
+{
+    ARCharactersViewController *charactersVC = [self.storyboard instantiateViewControllerWithIdentifier:@"charactersVC"];
+    
+    charactersVC.delegate = self;
+    
+    [self presentViewController:charactersVC animated:YES completion:nil];
+}
+
+-(void)characterPicked:(ARCharacter *)character
 {
     //Add it
     [character spawnInScene:scene];

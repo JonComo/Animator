@@ -10,7 +10,7 @@
 
 @class ARPart;
 
-@interface ARPinJoint : SKSpriteNode
+@interface ARPinJoint : SKSpriteNode <NSCoding>
 
 @property (nonatomic, weak) ARPart *partA;
 @property (nonatomic, weak) ARPart *partB;

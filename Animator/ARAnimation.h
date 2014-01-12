@@ -42,5 +42,6 @@ typedef void (^RenderBlock)(NSMutableArray *images);
 -(void)snapshot;
 
 -(void)restart;
+-(void)undo;
 
 @end

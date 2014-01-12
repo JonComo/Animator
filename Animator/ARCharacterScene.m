@@ -49,8 +49,8 @@ static const uint32_t categoryPart = 0x1 << 3;
     
     part.position = CGPointMake(self.size.width/2, self.size.height/2);
     part.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:MIN(part.size.width/2, part.size.height/2)];
-    part.physicsBody.mass *= 0.05;
-    part.physicsBody.angularDamping = 0.4;
+    part.physicsBody.mass = 0.05;
+    part.physicsBody.angularDamping = 0.2;
     part.physicsBody.categoryBitMask = categoryPart;
     part.physicsBody.collisionBitMask = categoryPart;
 }
@@ -85,15 +85,6 @@ static const uint32_t categoryPart = 0x1 << 3;
     ARCharacter *character = [ARCharacter new];
     
     [character.parts addObjectsFromArray:parts];
-    
-    /*
-    NSMutableArray *joints = [NSMutableArray array];
-    for (ARPart *part in character.parts){
-        for (SKPhysicsJointPin *partJoint in part.physicsBody.joints)
-        {
-            if (![joints containsObject:partJoint]) [joints addObject:partJoint];
-        }
-    } */
     
     character.joints = joints;
     
