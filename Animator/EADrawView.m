@@ -50,7 +50,8 @@
 
 -(UIImage *)getTransparentImage
 {
-    CGRect drawnSize = CGRectMake(minX, minY, maxX-minX, maxY-minY);
+    float p = 4.0f; //padding
+    CGRect drawnSize = CGRectMake(minX - p, minY - p, maxX-minX + p, maxY-minY + p);
     
     NSLog(@"Drawn rect: %@", NSStringFromCGRect(drawnSize));
     
@@ -67,7 +68,6 @@
     UIImage *mask = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
-    
     
     UIGraphicsBeginImageContextWithOptions(drawnSize.size, NO, 1);
     

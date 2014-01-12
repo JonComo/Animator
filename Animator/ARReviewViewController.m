@@ -31,9 +31,13 @@
 {
     [super viewWillAppear:animated];
     
-    player = [[MPMoviePlayerController alloc] initWithContentURL:self.URL];
-    player.view.frame = CGRectMake(0, 0, 320, 320);
-    [self.view addSubview:player.view];
+    if (!player) {
+        player = [[MPMoviePlayerController alloc] initWithContentURL:self.URL];
+        player.view.frame = CGRectMake(0, 0, 320, 320);
+        [self.view addSubview:player.view];
+        
+        [player play];
+    }
 }
 
 - (void)didReceiveMemoryWarning

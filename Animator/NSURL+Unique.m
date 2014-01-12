@@ -26,7 +26,7 @@
     }
     
     do {
-        URL = [directory URLByAppendingPathComponent:[NSString stringWithFormat:@"%@%i%@", name, count, extension ? [NSString stringWithFormat:@".%@", extension] : @""]];
+        URL = [directory URLByAppendingPathComponent:[NSString stringWithFormat:@"%@%i%@", name, count, extension.length>0 ? [NSString stringWithFormat:@".%@", extension] : @""]];
         count ++;
     } while ([[NSFileManager defaultManager] fileExistsAtPath:[URL path]]);
     
