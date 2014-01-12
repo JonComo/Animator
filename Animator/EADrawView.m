@@ -51,7 +51,7 @@
 -(UIImage *)getTransparentImage
 {
     float p = 4.0f; //padding
-    CGRect drawnSize = CGRectMake(minX - p, minY - p, maxX-minX + p, maxY-minY + p);
+    CGRect drawnSize = CGRectMake(minX - p, minY - p, maxX-minX + p*2, maxY-minY + p*2);
     
     NSLog(@"Drawn rect: %@", NSStringFromCGRect(drawnSize));
     

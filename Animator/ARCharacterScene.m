@@ -13,6 +13,8 @@
 static const uint32_t categoryNone = 0x1 << 0;
 static const uint32_t categoryTouch = 0x1 << 1;
 static const uint32_t categoryPart = 0x1 << 3;
+static const uint32_t categoryDragged = 0x1 << 4;
+
 
 @implementation ARCharacterScene
 {
@@ -48,6 +50,7 @@ static const uint32_t categoryPart = 0x1 << 3;
     [self addChild:part];
     
     part.position = CGPointMake(self.size.width/2, self.size.height/2);
+    
     part.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:MIN(part.size.width/2, part.size.height/2)];
     part.physicsBody.mass = 0.05;
     part.physicsBody.angularDamping = 0.2;
@@ -93,6 +96,10 @@ static const uint32_t categoryPart = 0x1 << 3;
     //copy all parts and joints
     ARCharacter *character = [ARCharacter new];
     
+    //Add back collisions to other parts
+    for (ARPart *part in parts)
+        part.physicsBody.collisionBitMask = categoryPart;
+    
     [character.parts addObjectsFromArray:parts];
     
     character.joints = joints;
@@ -124,6 +131,7 @@ static const uint32_t categoryPart = 0x1 << 3;
     nodeToDrag = topNode;
     
     nodeToDrag.physicsBody.collisionBitMask = categoryNone;
+    nodeToDrag.physicsBody.categoryBitMask = categoryDragged;
     
     nodeTouch = [[SKSpriteNode alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(1, 1)];
     nodeTouch.position = touchPosition;
@@ -182,6 +190,7 @@ static const uint32_t categoryPart = 0x1 << 3;
     }
     
     nodeToDrag.physicsBody.collisionBitMask = categoryPart;
+    nodeToDrag.physicsBody.categoryBitMask = categoryPart;
     
     nodeToDrag = nil;
     

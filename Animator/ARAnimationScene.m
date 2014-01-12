@@ -10,10 +10,9 @@
 
 #import "ARAnimation.h"
 
-static const uint32_t categoryPart = 0x1 << 1;
-static const uint32_t categoryTouch = 0x1 << 2;
-
-static const uint32_t categoryNone = 0x1 << 3;
+static const uint32_t categoryNone = 0x1 << 0;
+static const uint32_t categoryTouch = 0x1 << 1;
+static const uint32_t categoryPart = 0x1 << 3;
 
 @interface ARAnimationScene () <ARAnimationDelegate>
 
