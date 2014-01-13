@@ -16,6 +16,8 @@
 		860910A418824706009CCEF9 /* NSURL+Unique.m in Sources */ = {isa = PBXBuildFile; fileRef = 860910A318824706009CCEF9 /* NSURL+Unique.m */; };
 		860910A718825C2C009CCEF9 /* ARCharactersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860910A618825C2C009CCEF9 /* ARCharactersViewController.m */; };
 		86196B431880CE260099A7EF /* ARAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 86196B421880CE260099A7EF /* ARAnimation.m */; };
+		86375F7F18835D3D008091BF /* ARAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86375F7E18835D3D008091BF /* ARAudioRecorder.m */; };
+		86375F8218836638008091BF /* ARTimedURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 86375F8118836638008091BF /* ARTimedURL.m */; };
 		8667AE4F187FB88800600654 /* ARAnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE4E187FB88800600654 /* ARAnimationScene.m */; };
 		8667AE54187FBFE100600654 /* EADrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE51187FBFE100600654 /* EADrawView.m */; };
 		8667AE55187FBFE100600654 /* EAScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE53187FBFE100600654 /* EAScrollView.m */; };
@@ -70,6 +72,10 @@
 		860910A618825C2C009CCEF9 /* ARCharactersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARCharactersViewController.m; sourceTree = "<group>"; };
 		86196B411880CE260099A7EF /* ARAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARAnimation.h; sourceTree = "<group>"; };
 		86196B421880CE260099A7EF /* ARAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARAnimation.m; sourceTree = "<group>"; };
+		86375F7D18835D3D008091BF /* ARAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARAudioRecorder.h; sourceTree = "<group>"; };
+		86375F7E18835D3D008091BF /* ARAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARAudioRecorder.m; sourceTree = "<group>"; };
+		86375F8018836638008091BF /* ARTimedURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARTimedURL.h; sourceTree = "<group>"; };
+		86375F8118836638008091BF /* ARTimedURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARTimedURL.m; sourceTree = "<group>"; };
 		8667AE4D187FB88800600654 /* ARAnimationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARAnimationScene.h; sourceTree = "<group>"; };
 		8667AE4E187FB88800600654 /* ARAnimationScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARAnimationScene.m; sourceTree = "<group>"; };
 		8667AE50187FBFE100600654 /* EADrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EADrawView.h; sourceTree = "<group>"; };
@@ -205,6 +211,10 @@
 				86196B421880CE260099A7EF /* ARAnimation.m */,
 				8667AE62187FEFE500600654 /* ARMovieComposer.h */,
 				8667AE63187FEFE500600654 /* ARMovieComposer.m */,
+				86375F7D18835D3D008091BF /* ARAudioRecorder.h */,
+				86375F7E18835D3D008091BF /* ARAudioRecorder.m */,
+				86375F8018836638008091BF /* ARTimedURL.h */,
+				86375F8118836638008091BF /* ARTimedURL.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -401,6 +411,7 @@
 				86196B431880CE260099A7EF /* ARAnimation.m in Sources */,
 				8609109D18823F34009CCEF9 /* ARPinJoint.m in Sources */,
 				8667AE55187FBFE100600654 /* EAScrollView.m in Sources */,
+				86375F7F18835D3D008091BF /* ARAudioRecorder.m in Sources */,
 				860910961882253A009CCEF9 /* UIImage+Save.m in Sources */,
 				8667AE64187FEFE500600654 /* ARMovieComposer.m in Sources */,
 				868905DD187FB5FA003F016C /* ARHomeViewController.m in Sources */,
@@ -416,6 +427,7 @@
 				868905E4187FB61B003F016C /* ARCutoutViewController.m in Sources */,
 				860910A0188240F6009CCEF9 /* JCMath.m in Sources */,
 				8667AE54187FBFE100600654 /* EADrawView.m in Sources */,
+				86375F8218836638008091BF /* ARTimedURL.m in Sources */,
 				860910A418824706009CCEF9 /* NSURL+Unique.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

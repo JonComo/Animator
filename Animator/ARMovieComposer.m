@@ -9,6 +9,7 @@
 #import "ARMovieComposer.h"
 
 #import "NSURL+Unique.h"
+#import "ARTimedURL.h"
 
 #define DOCUMENTS [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0]
 #define MOV_DIR [DOCUMENTS URLByAppendingPathComponent:@"movies"]
@@ -17,9 +18,12 @@
 
 @implementation ARMovieComposer
 
-+(void)renderImages:(NSArray *)images completion:(RenderMovieBlock)block
++(void)renderData:(NSDictionary *)data completion:(RenderMovieBlock)block
 {
     NSLog(@"Write Started");
+    
+    NSArray *images = data[MovieComposerImages];
+    NSArray *audioURLS = data[MovieComposerAudio];
     
     NSURL *URL = [NSURL uniqueWithName:@"movie.mp4" inDirectory:MOV_DIR];
     
@@ -104,9 +108,8 @@
         [videoWriter finishWriting];
         NSLog(@"Write Ended");
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (block) block(URL);
-        });
+        //Combine in audio clips
+        [ARMovieComposer combineVideo:URL andAudioURLs:audioURLS completion:block];
     });
 }
 
@@ -146,53 +149,66 @@
     return pxbuffer;
 }
 
-/*
- -(void)CompileFilesToMakeMovie
- {
- AVMutableComposition* mixComposition = [AVMutableComposition composition];
- 
- NSString* audio_inputFileName = @"deformed.caf";
- NSString* audio_inputFilePath = [Utilities documentsPath:audio_inputFileName];
- NSURL*    audio_inputFileUrl = [NSURL fileURLWithPath:audio_inputFilePath];
- 
- NSString* video_inputFileName = @"essai.mp4";
- NSString* video_inputFilePath = [Utilities documentsPath:video_inputFileName];
- NSURL*    video_inputFileUrl = [NSURL fileURLWithPath:video_inputFilePath];
- 
- NSString* outputFileName = @"outputFile.mov";
- NSString* outputFilePath = [Utilities documentsPath:outputFileName];
- NSURL*    outputFileUrl = [NSURL fileURLWithPath:outputFilePath];
- 
- if ([[NSFileManager defaultManager] fileExistsAtPath:outputFilePath])
- [[NSFileManager defaultManager] removeItemAtPath:outputFilePath error:nil];
- 
- 
- 
- CMTime nextClipStartTime = kCMTimeZero;
- 
- AVURLAsset* videoAsset = [[AVURLAsset alloc]initWithURL:video_inputFileUrl options:nil];
- CMTimeRange video_timeRange = CMTimeRangeMake(kCMTimeZero,videoAsset.duration);
- AVMutableCompositionTrack *a_compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
- [a_compositionVideoTrack insertTimeRange:video_timeRange ofTrack:[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:nextClipStartTime error:nil];
- 
- //nextClipStartTime = CMTimeAdd(nextClipStartTime, a_timeRange.duration);
- 
- AVURLAsset* audioAsset = [[AVURLAsset alloc]initWithURL:audio_inputFileUrl options:nil];
- CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, audioAsset.duration);
- AVMutableCompositionTrack *b_compositionAudioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
- [b_compositionAudioTrack insertTimeRange:audio_timeRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:nextClipStartTime error:nil];
- 
- 
- 
- AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
- _assetExport.outputFileType = @"com.apple.quicktime-movie";
- _assetExport.outputURL = outputFileUrl;
- 
- [_assetExport exportAsynchronouslyWithCompletionHandler:
- ^(void ) {
- [self saveVideoToAlbum:outputFilePath];
- }
- ];
- } */
++(void)combineVideo:(NSURL *)videoURL andAudioURLs:(NSArray *)audioURLs completion:(RenderMovieBlock)block
+{
+    AVURLAsset *asset = [AVURLAsset assetWithURL:videoURL];
+    
+    AVMutableComposition *mutableComposition = [AVMutableComposition composition];
+    
+    AVMutableCompositionTrack *mutableCompositionVideoTrack = [mutableComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+    AVMutableCompositionTrack *mutableCompositionAudioTrack = [mutableComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+    
+    //Add video
+    AVAssetTrack *videoAssetTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
+    
+    [mutableCompositionVideoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero,videoAssetTrack.timeRange.duration) ofTrack:videoAssetTrack atTime:kCMTimeZero error:nil];
+    
+    
+    //Add audio
+    for (ARTimedURL *timedURL in audioURLs)
+    {
+        AVURLAsset *assetAudio = [AVURLAsset assetWithURL:timedURL];
+        
+        CMTime time = CMTimeMakeWithSeconds((float)timedURL.frame/24.0f, 24);
+        
+        AVAssetTrack *audioTrack = [[assetAudio tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0];
+        [mutableCompositionAudioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, assetAudio.duration) ofTrack:audioTrack atTime:time error:nil];
+    }
+    
+    NSURL *exportURL = [NSURL uniqueWithName:@"finalMovie.mp4" inDirectory:MOV_DIR];
+    
+    AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:mutableComposition presetName:AVAssetExportPreset640x480];
+    
+    exporter.outputFileType = AVFileTypeMPEG4;
+    exporter.outputURL = exportURL;
+    
+    [exporter exportAsynchronouslyWithCompletionHandler:^{
+        
+        switch([exporter status])
+        {
+            case AVAssetExportSessionStatusFailed:
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (block) block(nil);
+                });
+            } break;
+            case AVAssetExportSessionStatusCancelled:
+            case AVAssetExportSessionStatusCompleted:
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (block) block(exportURL);
+                });
+                
+            } break;
+            default:
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (block) block(nil);
+                });
+            } break;
+        }
+        
+    }];
+}
 
 @end

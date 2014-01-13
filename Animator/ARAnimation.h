@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^RenderBlock)(NSMutableArray *images);
+typedef void (^RenderBlock)(NSMutableArray *images, NSMutableArray *audio);
 
 @class ARAnimationScene;
 @class ARAnimation;

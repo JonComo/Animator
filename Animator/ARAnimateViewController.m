@@ -63,8 +63,8 @@
 
 - (IBAction)done:(id)sender
 {
-    [scene.animation renderCompletion:^(NSMutableArray *images) {
-        [ARMovieComposer renderImages:images completion:^(NSURL *URL) {
+    [scene.animation renderCompletion:^(NSMutableArray *images, NSMutableArray *audio){
+        [ARMovieComposer renderData:@{MovieComposerImages: images, MovieComposerAudio : audio} completion:^(NSURL *URL) {
             ARReviewViewController *reviewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"reviewVC"];
             reviewVC.URL = URL;
             [self presentViewController:reviewVC animated:YES completion:nil];

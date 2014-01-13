@@ -9,6 +9,7 @@
 #import "ARAnimation.h"
 #import "ARAnimationScene.h"
 #import "ARPart.h"
+#import "ARAudioRecorder.h"
 
 @implementation ARAnimation
 {
@@ -23,6 +24,9 @@
     RenderBlock _renderBlock;
     NSMutableArray *renderImages;
     BOOL isRendering;
+    
+    //Audio
+    ARAudioRecorder *audioRecorder;
 }
 
 -(id)init
@@ -31,6 +35,10 @@
         //init
         _currentFrame = 0;
         _frameLimit = 240;
+        
+        audioRecorder = [ARAudioRecorder audioRecorder];
+        
+        [ARAudioRecorder enableAudioSession];
     }
     
     return self;
@@ -64,10 +72,9 @@
     [timerPlay invalidate];
     timerPlay = nil;
     
-    if (isRendering)
-    {
+    if (isRendering){
         isRendering = NO;
-        if (_renderBlock) _renderBlock(renderImages);
+        if (_renderBlock) _renderBlock(renderImages, audioRecorder.URLs);
     }
     
     [self.delegate animationDidFinishPlaying:self];
@@ -114,6 +121,8 @@
     
     frameStartedRecording = self.currentFrame;
     
+    [audioRecorder recordAtFrame:self.currentFrame];
+    
     [self snapshot];
 }
 
@@ -121,6 +130,8 @@
 {
     [timerRecord invalidate];
     timerRecord = nil;
+    
+    [audioRecorder stop];
 }
 
 -(void)snapshot

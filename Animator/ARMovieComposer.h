@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#define MovieComposerImages @"image"
+#define MovieComposerAudio @"audio"
+
 typedef void (^RenderMovieBlock)(NSURL *URL);
 
 @interface ARMovieComposer : NSObject
 
-+(void)renderImages:(NSArray *)images completion:(RenderMovieBlock)block;
++(void)renderData:(NSDictionary *)data completion:(RenderMovieBlock)block;
 
 @end
