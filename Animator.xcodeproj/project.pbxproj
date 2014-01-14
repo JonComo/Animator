@@ -42,6 +42,7 @@
 		868905DD187FB5FA003F016C /* ARHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868905DC187FB5FA003F016C /* ARHomeViewController.m */; };
 		868905E1187FB611003F016C /* ARAnimateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868905E0187FB611003F016C /* ARAnimateViewController.m */; };
 		868905E4187FB61B003F016C /* ARCutoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868905E3187FB61B003F016C /* ARCutoutViewController.m */; };
+		868EBD9D1885CA2400A316BD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 868EBD9C1885CA2400A316BD /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +117,8 @@
 		868905E0187FB611003F016C /* ARAnimateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARAnimateViewController.m; sourceTree = "<group>"; };
 		868905E2187FB61B003F016C /* ARCutoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCutoutViewController.h; sourceTree = "<group>"; };
 		868905E3187FB61B003F016C /* ARCutoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARCutoutViewController.m; sourceTree = "<group>"; };
+		868EBD9B1885CA2400A316BD /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		868EBD9C1885CA2400A316BD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +249,8 @@
 		868905A5187FB40F003F016C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				868EBD9B1885CA2400A316BD /* MBProgressHUD.h */,
+				868EBD9C1885CA2400A316BD /* MBProgressHUD.m */,
 				8609109E188240F6009CCEF9 /* JCMath.h */,
 				8609109F188240F6009CCEF9 /* JCMath.m */,
 				868905A6187FB40F003F016C /* Foundation.framework */,
@@ -428,6 +433,7 @@
 				8609109918823440009CCEF9 /* ARCharacter.m in Sources */,
 				860910A718825C2C009CCEF9 /* ARCharactersViewController.m in Sources */,
 				8667AE5A187FC11800600654 /* EALineDisplayView.m in Sources */,
+				868EBD9D1885CA2400A316BD /* MBProgressHUD.m in Sources */,
 				8609108F188217C9009CCEF9 /* ARCharacterCreatorViewController.m in Sources */,
 				868905B7187FB40F003F016C /* ARAppDelegate.m in Sources */,
 				868905E4187FB61B003F016C /* ARCutoutViewController.m in Sources */,

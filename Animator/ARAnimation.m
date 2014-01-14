@@ -178,10 +178,10 @@
 -(void)renderCurrentFrame
 {
     //Render image
-    CGSize size = CGSizeMake(640, 640);
+    CGSize size = CGSizeMake(320, 320);
     
     UIGraphicsBeginImageContext(size);
-    [self.scene.view drawViewHierarchyInRect:CGRectMake(0, 0, size.width, size.height) afterScreenUpdates:YES];
+    [self.scene.view drawViewHierarchyInRect:CGRectMake(0, 0, size.width, size.height) afterScreenUpdates:NO];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     

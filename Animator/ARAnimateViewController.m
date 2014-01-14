@@ -13,6 +13,8 @@
 
 #import "ARMovieComposer.h"
 
+#import "MBProgressHUD.h"
+
 @interface ARAnimateViewController () <ARCharactersViewControllerDelegate>
 {
     ARAnimationScene *scene;
@@ -71,8 +73,18 @@
 
 - (IBAction)done:(id)sender
 {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = @"Images";
+    
     [scene.animation renderCompletion:^(NSMutableArray *images, NSMutableArray *audio){
+        
+        hud.labelText = @"Rendering";
+        
         [ARMovieComposer renderData:@{MovieComposerImages: images, MovieComposerAudio : audio} completion:^(NSURL *URL) {
+            
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            
             ARReviewViewController *reviewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"reviewVC"];
             reviewVC.URL = URL;
             [self presentViewController:reviewVC animated:YES completion:nil];
