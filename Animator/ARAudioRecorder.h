@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class AVAudioPlayer;
+
 @interface ARAudioRecorder : NSObject
+
+@property (nonatomic, strong) AVAudioPlayer *player;
 
 @property (nonatomic, strong) NSMutableArray *URLs;
 
@@ -18,6 +22,8 @@
 
 -(void)recordAtFrame:(int)frame;
 -(void)stop;
+
+-(void)playAudioAtFrame:(int)frame;
 
 -(void)clear;
 -(void)undo;

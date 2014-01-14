@@ -167,7 +167,11 @@
     //Add audio
     for (ARTimedURL *timedURL in audioURLs)
     {
-        AVURLAsset *assetAudio = [AVURLAsset assetWithURL:timedURL];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[timedURL.URL path]]) {
+            NSLog(@"Found file!");
+        }
+        
+        AVURLAsset *assetAudio = [AVURLAsset assetWithURL:timedURL.URL];
         
         CMTime time = CMTimeMakeWithSeconds((float)timedURL.frame/24.0f, 24);
         

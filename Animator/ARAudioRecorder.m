@@ -16,9 +16,9 @@
 
 @import AVFoundation;
 
-@interface ARAudioRecorder () <AVAudioRecorderDelegate>
+@interface ARAudioRecorder () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 {
-    __weak AVAudioRecorder *recorder;
+    AVAudioRecorder *recorder;
 }
 
 @end
@@ -38,6 +38,8 @@
     [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord
                         error:nil];
     
+    [audioSession overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+    
     [audioSession setActive:YES error:nil];
 }
 
@@ -53,9 +55,10 @@
 
 -(void)recordAtFrame:(int)frame
 {
-    ARTimedURL *URL = [[ARTimedURL alloc] initFileURLWithPath:[[NSURL uniqueWithName:@"audio.caf" inDirectory:AUDIO_DIR] path]];
+    ARTimedURL *timedURL = [ARTimedURL new];
     
-    URL.frame = frame;
+    timedURL.URL = [NSURL uniqueWithName:@"audio.caf" inDirectory:AUDIO_DIR];
+    timedURL.frame = frame;
     
     NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] init];
     
@@ -70,7 +73,7 @@
     NSError *error = nil;
     
     recorder = [[AVAudioRecorder alloc]
-                initWithURL:URL
+                initWithURL:timedURL.URL
                 settings:recordSettings
                 error:&error];
     
@@ -79,7 +82,7 @@
     if (error)
         NSLog(@"AUDIO ERROR: %@", error);
     
-    [self.URLs addObject:URL];
+    [self.URLs addObject:timedURL];
     
     [recorder record];
 }
@@ -100,10 +103,40 @@
         [self.URLs removeLastObject];
 }
 
+-(void)playAudioAtFrame:(int)frame
+{
+    ARTimedURL *audioURL;
+    
+    for (ARTimedURL *testURL in self.URLs){
+        if (testURL.frame == frame) audioURL = testURL;
+    }
+    
+    if (!audioURL) return;
+    
+    NSError *playerError;
+    
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:audioURL.URL error:&playerError];
+    
+    if (playerError)
+    {
+        NSLog(@"Error: %@", playerError);
+    }
+    
+    self.player.delegate = self;
+    
+    [self.player play];
+}
+
 -(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag
 {
     if (!flag)
         NSLog(@"WOOPS");
+}
+
+-(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    player.delegate = nil;
+    player = nil;
 }
 
 @end

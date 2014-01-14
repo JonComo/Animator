@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ARTimedURL : NSURL
+@interface ARTimedURL : NSObject
 
+@property (nonatomic, strong) NSURL *URL;
 @property int frame;
 
 @end

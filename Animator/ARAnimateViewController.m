@@ -19,6 +19,7 @@
     
     __weak IBOutlet SKView *sceneView;
     __weak IBOutlet UIButton *buttonPlay;
+    __weak IBOutlet UIButton *buttonRecord;
 }
 
 @end
@@ -54,6 +55,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)record:(id)sender
+{
+    scene.shouldRecord = !scene.shouldRecord;
+    
+    [buttonRecord setTitle:scene.shouldRecord ? @"Stop Recording" : @"Record" forState:UIControlStateNormal];
 }
 
 - (IBAction)play:(id)sender

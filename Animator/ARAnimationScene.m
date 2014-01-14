@@ -134,7 +134,8 @@ static const uint32_t categoryPart = 0x1 << 3;
     joint = [SKPhysicsJointPin jointWithBodyA:nodeToDrag.physicsBody bodyB:nodeTouch.physicsBody anchor:touchPosition];
     [self.physicsWorld addJoint:joint];
     
-    [self.animation startRecording];
+    if (self.shouldRecord)
+        [self.animation startRecording];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -157,7 +158,8 @@ static const uint32_t categoryPart = 0x1 << 3;
     joint = nil;
     
     //Don't record animation if dragged offscreen
-    [self.animation stopRecordingSave:YES];
+    if (self.shouldRecord)
+        [self.animation stopRecordingSave:YES];
     
     nodeToDrag = nil;
 }

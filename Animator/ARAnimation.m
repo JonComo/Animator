@@ -37,7 +37,6 @@
         _frameLimit = 240;
         
         audioRecorder = [ARAudioRecorder audioRecorder];
-        
         [ARAudioRecorder enableAudioSession];
     }
     
@@ -104,6 +103,11 @@
     }
     
     self.currentFrame = frame;
+    
+    if (!isRendering) {
+        //Play audio when not rendering
+        [audioRecorder playAudioAtFrame:frame];
+    }
     
     if (isRendering){
         [self renderCurrentFrame];
