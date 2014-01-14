@@ -29,6 +29,7 @@ typedef void (^RenderBlock)(NSMutableArray *images, NSMutableArray *audio);
 @property int frameLimit;
 @property (nonatomic, assign) int currentFrame;
 @property (nonatomic, weak) ARAnimationScene *scene;
+@property BOOL isRecording;
 
 +(ARAnimation *)animationWithDelegate:(id<ARAnimationDelegate>)delegate;
 

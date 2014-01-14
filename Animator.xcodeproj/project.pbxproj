@@ -18,6 +18,7 @@
 		86196B431880CE260099A7EF /* ARAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 86196B421880CE260099A7EF /* ARAnimation.m */; };
 		86375F7F18835D3D008091BF /* ARAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86375F7E18835D3D008091BF /* ARAudioRecorder.m */; };
 		86375F8218836638008091BF /* ARTimedURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 86375F8118836638008091BF /* ARTimedURL.m */; };
+		86444B2D1885B5190006515A /* ARTouchNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 86444B2C1885B5190006515A /* ARTouchNode.m */; };
 		8667AE4F187FB88800600654 /* ARAnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE4E187FB88800600654 /* ARAnimationScene.m */; };
 		8667AE54187FBFE100600654 /* EADrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE51187FBFE100600654 /* EADrawView.m */; };
 		8667AE55187FBFE100600654 /* EAScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE53187FBFE100600654 /* EAScrollView.m */; };
@@ -76,6 +77,8 @@
 		86375F7E18835D3D008091BF /* ARAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARAudioRecorder.m; sourceTree = "<group>"; };
 		86375F8018836638008091BF /* ARTimedURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARTimedURL.h; sourceTree = "<group>"; };
 		86375F8118836638008091BF /* ARTimedURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARTimedURL.m; sourceTree = "<group>"; };
+		86444B2B1885B5190006515A /* ARTouchNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARTouchNode.h; sourceTree = "<group>"; };
+		86444B2C1885B5190006515A /* ARTouchNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARTouchNode.m; sourceTree = "<group>"; };
 		8667AE4D187FB88800600654 /* ARAnimationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARAnimationScene.h; sourceTree = "<group>"; };
 		8667AE4E187FB88800600654 /* ARAnimationScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARAnimationScene.m; sourceTree = "<group>"; };
 		8667AE50187FBFE100600654 /* EADrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EADrawView.h; sourceTree = "<group>"; };
@@ -215,6 +218,8 @@
 				86375F7E18835D3D008091BF /* ARAudioRecorder.m */,
 				86375F8018836638008091BF /* ARTimedURL.h */,
 				86375F8118836638008091BF /* ARTimedURL.m */,
+				86444B2B1885B5190006515A /* ARTouchNode.h */,
+				86444B2C1885B5190006515A /* ARTouchNode.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -410,6 +415,7 @@
 				8667AE4F187FB88800600654 /* ARAnimationScene.m in Sources */,
 				86196B431880CE260099A7EF /* ARAnimation.m in Sources */,
 				8609109D18823F34009CCEF9 /* ARPinJoint.m in Sources */,
+				86444B2D1885B5190006515A /* ARTouchNode.m in Sources */,
 				8667AE55187FBFE100600654 /* EAScrollView.m in Sources */,
 				86375F7F18835D3D008091BF /* ARAudioRecorder.m in Sources */,
 				860910961882253A009CCEF9 /* UIImage+Save.m in Sources */,

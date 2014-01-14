@@ -124,10 +124,13 @@
     timerRecord = [NSTimer scheduledTimerWithTimeInterval:1.0f/24.0f target:self selector:@selector(snapshot) userInfo:nil repeats:YES];
     
     frameStartedRecording = self.currentFrame;
-    
     [audioRecorder recordAtFrame:self.currentFrame];
     
+    self.isRecording = YES;
+    
     [self snapshot];
+    
+    NSLog(@"STARTED RECORDING");
 }
 
 -(void)stopRecordingSave:(BOOL)save
@@ -135,7 +138,11 @@
     [timerRecord invalidate];
     timerRecord = nil;
     
+    self.isRecording = NO;
+    
     [audioRecorder stop];
+    
+    NSLog(@"STOPPED RECORDING");
 }
 
 -(void)snapshot
@@ -155,8 +162,6 @@
     [frames addObject:frameInfo];
     
     self.currentFrame ++;
-    
-    NSLog(@"Captured frame: %i", self.currentFrame);
 }
 
 -(void)renderCompletion:(RenderBlock)block
