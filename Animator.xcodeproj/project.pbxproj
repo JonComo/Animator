@@ -189,6 +189,31 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		8648D7F61886F849008454B5 /* Touch System */ = {
+			isa = PBXGroup;
+			children = (
+				86444B2B1885B5190006515A /* ARTouchNode.h */,
+				86444B2C1885B5190006515A /* ARTouchNode.m */,
+				8648D7F21886F505008454B5 /* ARTouchSystem.h */,
+				8648D7F31886F505008454B5 /* ARTouchSystem.m */,
+				8648D7F51886F5E1008454B5 /* ARPhysicsCategories.h */,
+			);
+			name = "Touch System";
+			sourceTree = "<group>";
+		};
+		8648D7F71886F856008454B5 /* Movie Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				8667AE62187FEFE500600654 /* ARMovieComposer.h */,
+				8667AE63187FEFE500600654 /* ARMovieComposer.m */,
+				86375F7D18835D3D008091BF /* ARAudioRecorder.h */,
+				86375F7E18835D3D008091BF /* ARAudioRecorder.m */,
+				86375F8018836638008091BF /* ARTimedURL.h */,
+				86375F8118836638008091BF /* ARTimedURL.m */,
+			);
+			name = "Movie Rendering";
+			sourceTree = "<group>";
+		};
 		8667AE56187FBFE800600654 /* Cutout */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,19 +247,10 @@
 			children = (
 				860910A1188246ED009CCEF9 /* Categories */,
 				8609109A18823488009CCEF9 /* Character Model */,
+				8648D7F61886F849008454B5 /* Touch System */,
+				8648D7F71886F856008454B5 /* Movie Rendering */,
 				86196B411880CE260099A7EF /* ARAnimation.h */,
 				86196B421880CE260099A7EF /* ARAnimation.m */,
-				8667AE62187FEFE500600654 /* ARMovieComposer.h */,
-				8667AE63187FEFE500600654 /* ARMovieComposer.m */,
-				86375F7D18835D3D008091BF /* ARAudioRecorder.h */,
-				86375F7E18835D3D008091BF /* ARAudioRecorder.m */,
-				86375F8018836638008091BF /* ARTimedURL.h */,
-				86375F8118836638008091BF /* ARTimedURL.m */,
-				86444B2B1885B5190006515A /* ARTouchNode.h */,
-				86444B2C1885B5190006515A /* ARTouchNode.m */,
-				8648D7F21886F505008454B5 /* ARTouchSystem.h */,
-				8648D7F31886F505008454B5 /* ARTouchSystem.m */,
-				8648D7F51886F5E1008454B5 /* ARPhysicsCategories.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";

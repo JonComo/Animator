@@ -8,23 +8,15 @@
 
 #import "ARCharacterScene.h"
 
-#import "ARTouchNode.h"
-#import "ARPinJoint.h"
-
-static const uint32_t categoryNone = 0x1 << 0;
-
-static const uint32_t categoryTouch = 0x1 << 1;
-static const uint32_t categoryPart = 0x1 << 3;
-static const uint32_t categoryDragged = 0x1 << 4;
+#import "ARTouchSystem.h"
 
 
 @implementation ARCharacterScene
 {
     NSMutableArray *parts;
-    NSMutableArray *joints;
     
     //Dragging system
-    NSMutableArray *touchNodes;
+    ARTouchSystem *touchSystem;
 }
 
 -(id)initWithSize:(CGSize)size
@@ -36,7 +28,9 @@ static const uint32_t categoryDragged = 0x1 << 4;
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(-40, -40, size.width + 80, size.height + 80)];
         
         parts = [NSMutableArray array];
-        joints = [NSMutableArray array];
+        
+        touchSystem = [ARTouchSystem touchSystemWithScene:self parts:parts];
+        touchSystem.allowsJointCreation = YES;
     }
     
     return self;
@@ -65,7 +59,7 @@ static const uint32_t categoryDragged = 0x1 << 4;
         [part removeFromParent];
     
     [parts removeAllObjects];
-    [joints removeAllObjects];
+    [touchSystem.pinJoints removeAllObjects];
 }
 
 -(void)undo
@@ -78,13 +72,13 @@ static const uint32_t categoryDragged = 0x1 << 4;
         [self.physicsWorld removeJoint:pin];
     
     NSMutableArray *pinsToRemove = [NSMutableArray array];
-    for (ARPinJoint *pin in joints){
+    for (ARPinJoint *pin in touchSystem.pinJoints){
         if (pin.partA == lastAdded || pin.partB == lastAdded){
             [pinsToRemove addObject:pin];
         }
     }
     
-    [joints removeObjectsInArray:pinsToRemove];
+    [touchSystem.pinJoints removeObjectsInArray:pinsToRemove];
     
     [parts removeObject:lastAdded];
     [lastAdded removeFromParent];
@@ -101,7 +95,7 @@ static const uint32_t categoryDragged = 0x1 << 4;
     
     [character.parts addObjectsFromArray:parts];
     
-    character.joints = joints;
+    character.joints = touchSystem.pinJoints;
     
     for (ARPart *part in parts)
         [part removeFromParent];
@@ -111,129 +105,27 @@ static const uint32_t categoryDragged = 0x1 << 4;
 
 -(void)update:(NSTimeInterval)currentTime
 {
-    //Highlight parts that will get jointed
-    for (ARPart *part in parts)
-        part.alpha = 1;
-    
-    for (ARTouchNode *touchNode in touchNodes)
-    {
-        NSArray *partsToConnect = [self partsToConnectAtTouchNode:touchNode];
-        
-        for (ARPart *part in partsToConnect)
-            part.alpha = 0.5;
-    }
+    [touchSystem update:currentTime];
 }
 
 -(void)didSimulatePhysics
 {
-    for (ARTouchNode *touchNode in touchNodes)
-        touchNode.position = touchNode.lastPosition;
-}
-
--(void)enumerateTouchNodesForTouches:(NSSet *)touches block:(void(^)(ARTouchNode *touchNode, UITouch *touch))block
-{
-    for (UITouch *touch in touches){
-        ARTouchNode *touchNode;
-        for (ARTouchNode *testNode in touchNodes){
-            if ([testNode.key isEqualToString:[NSString stringWithFormat:@"%d", (int)touch]]) touchNode = testNode;
-        }
-        
-        if (block) block(touchNode, touch);
-    }
+    [touchSystem didSimulatePhysics];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (!touchNodes) touchNodes = [NSMutableArray array];
-    
-    UITouch *touch = [touches anyObject];
-    
-    ARTouchNode *touchNode = [ARTouchNode touchNodeForTouch:touch position:[touch locationInNode:self]];
-    
-    touchNode.lastPosition = touchNode.position;
-    [touchNodes addObject:touchNode];
-    [self addChild:touchNode];
-    
-    //Get topmost node
-    ARPart *nodeDragging = [[self partsAtTouchNode:touchNode] lastObject];
-    
-    if (nodeDragging){
-        SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:touchNode.physicsBody bodyB:nodeDragging.physicsBody anchor:touchNode.position];
-        [self.physicsWorld addJoint:joint];
-    }
-    
-    for (ARPart *part in parts){
-        part.physicsBody.collisionBitMask = categoryNone;
-    }
+    [touchSystem touchesBegan:touches withEvent:event];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self enumerateTouchNodesForTouches:touches block:^(ARTouchNode *touchNode, UITouch *touch) {
-        touchNode.position = [touch locationInNode:self];
-        touchNode.lastPosition = touchNode.position;
-    }];
+    [touchSystem touchesMoved:touches withEvent:event];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self enumerateTouchNodesForTouches:touches block:^(ARTouchNode *touchNode, UITouch *touch) {
-        
-        //Linking of parts
-        NSArray *partsToConnect = [self partsToConnectAtTouchNode:touchNode];
-        
-        if (partsToConnect)
-        {
-            ARPart *partA = partsToConnect[0];
-            ARPart *partB = partsToConnect[1];
-            
-            SKPhysicsJointPin *connector = [SKPhysicsJointPin jointWithBodyA:partA.physicsBody bodyB:partB.physicsBody anchor:touchNode.position];
-            [self.physicsWorld addJoint:connector];
-            
-            ARPinJoint *pinJoint = [ARPinJoint jointWithPartA:partA partB:partB anchorPoint:touchNode.position];
-            [joints addObject:pinJoint];
-        }
-        
-        [self removeTouchNode:touchNode];
-        
-        if (touchNodes.count == 0){
-            //Last touch
-            for (ARPart *part in parts){
-                part.physicsBody.collisionBitMask = categoryPart;
-            }
-        }
-    }];
-}
-
--(void)removeTouchNode:(ARTouchNode *)touchNode
-{
-    for (SKPhysicsJointPin *pin in touchNode.physicsBody.joints)
-        [self.physicsWorld removeJoint:pin];
-    
-    [touchNode removeFromParent];
-    [touchNodes removeObject:touchNode];
-    touchNode = nil;
-}
-
--(NSArray *)partsAtTouchNode:(ARTouchNode *)touchNode
-{
-    NSMutableArray *partsAtPoint = [[self nodesAtPoint:touchNode.position] mutableCopy];
-    
-    if ([partsAtPoint containsObject:touchNode]) [partsAtPoint removeObject:touchNode];
-    
-    return partsAtPoint;
-}
-
--(NSArray *)partsToConnectAtTouchNode:(ARTouchNode *)touchNode
-{
-    NSArray *partsAtPoint = [self partsAtTouchNode:touchNode];
-    
-    if (partsAtPoint.count >= 2){
-        int c = partsAtPoint.count;
-        return @[partsAtPoint[c-2], partsAtPoint[c-1]];
-    }
-    
-    return nil;
+    [touchSystem touchesEnded:touches withEvent:event];
 }
 
 @end

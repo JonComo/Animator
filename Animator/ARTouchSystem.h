@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 #import "ARTouchNode.h"
+#import "ARPinJoint.h"
+
 #import "ARPhysicsCategories.h"
 
 @import SpriteKit;
@@ -20,6 +22,8 @@
 @property (nonatomic, strong) NSMutableArray *pinJoints;
 
 +(ARTouchSystem *)touchSystemWithScene:(SKScene *)scene parts:(NSMutableArray *)parts;
+
+@property BOOL allowsJointCreation;
 
 -(void)update:(NSTimeInterval)currentTime;
 -(void)didSimulatePhysics;

@@ -9,17 +9,26 @@
 #import "ARTouchSystem.h"
 
 #import "ARPart.h"
-#import "ARPinJoint.h"
 
 @implementation ARTouchSystem
 {
     NSMutableArray *touchNodes;
 }
 
-
++(ARTouchSystem *)touchSystemWithScene:(SKScene *)scene parts:(NSMutableArray *)parts
+{
+    ARTouchSystem *system = [ARTouchSystem new];
+    
+    system.scene = scene;
+    system.parts = parts;
+    
+    return system;
+}
 
 -(void)update:(NSTimeInterval)currentTime
 {
+    if (!self.allowsJointCreation) return;
+    
     //Highlight parts that will get jointed
     for (ARPart *part in self.parts)
         part.alpha = 1;
@@ -88,19 +97,24 @@
 {
     [self enumerateTouchNodesForTouches:touches block:^(ARTouchNode *touchNode, UITouch *touch) {
         
-        //Linking of parts
-        NSArray *partsToConnect = [self partsToConnectAtTouchNode:touchNode];
-        
-        if (partsToConnect)
+        if (self.allowsJointCreation)
         {
-            ARPart *partA = partsToConnect[0];
-            ARPart *partB = partsToConnect[1];
+            //Linking of parts
+            NSArray *partsToConnect = [self partsToConnectAtTouchNode:touchNode];
             
-            SKPhysicsJointPin *connector = [SKPhysicsJointPin jointWithBodyA:partA.physicsBody bodyB:partB.physicsBody anchor:touchNode.position];
-            [self.scene.physicsWorld addJoint:connector];
-            
-            ARPinJoint *pinJoint = [ARPinJoint jointWithPartA:partA partB:partB anchorPoint:touchNode.position];
-            [self.pinJoints addObject:pinJoint];
+            if (partsToConnect)
+            {
+                ARPart *partA = partsToConnect[0];
+                ARPart *partB = partsToConnect[1];
+                
+                SKPhysicsJointPin *connector = [SKPhysicsJointPin jointWithBodyA:partA.physicsBody bodyB:partB.physicsBody anchor:touchNode.position];
+                [self.scene.physicsWorld addJoint:connector];
+                
+                
+                ARPinJoint *pinJoint = [ARPinJoint jointWithPartA:partA partB:partB anchorPoint:touchNode.position];
+                if (!self.pinJoints) self.pinJoints = [NSMutableArray array];
+                [self.pinJoints addObject:pinJoint];
+            }
         }
         
         [self removeTouchNode:touchNode];
