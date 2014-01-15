@@ -19,6 +19,8 @@
 		86375F7F18835D3D008091BF /* ARAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86375F7E18835D3D008091BF /* ARAudioRecorder.m */; };
 		86375F8218836638008091BF /* ARTimedURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 86375F8118836638008091BF /* ARTimedURL.m */; };
 		86444B2D1885B5190006515A /* ARTouchNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 86444B2C1885B5190006515A /* ARTouchNode.m */; };
+		8648D7F11886DFD0008454B5 /* ARBezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 8648D7F01886DFD0008454B5 /* ARBezierPath.m */; };
+		8648D7F41886F505008454B5 /* ARTouchSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8648D7F31886F505008454B5 /* ARTouchSystem.m */; };
 		8667AE4F187FB88800600654 /* ARAnimationScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE4E187FB88800600654 /* ARAnimationScene.m */; };
 		8667AE54187FBFE100600654 /* EADrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE51187FBFE100600654 /* EADrawView.m */; };
 		8667AE55187FBFE100600654 /* EAScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8667AE53187FBFE100600654 /* EAScrollView.m */; };
@@ -80,6 +82,11 @@
 		86375F8118836638008091BF /* ARTimedURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARTimedURL.m; sourceTree = "<group>"; };
 		86444B2B1885B5190006515A /* ARTouchNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARTouchNode.h; sourceTree = "<group>"; };
 		86444B2C1885B5190006515A /* ARTouchNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARTouchNode.m; sourceTree = "<group>"; };
+		8648D7EF1886DFD0008454B5 /* ARBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARBezierPath.h; sourceTree = "<group>"; };
+		8648D7F01886DFD0008454B5 /* ARBezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARBezierPath.m; sourceTree = "<group>"; };
+		8648D7F21886F505008454B5 /* ARTouchSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARTouchSystem.h; sourceTree = "<group>"; };
+		8648D7F31886F505008454B5 /* ARTouchSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARTouchSystem.m; sourceTree = "<group>"; };
+		8648D7F51886F5E1008454B5 /* ARPhysicsCategories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARPhysicsCategories.h; sourceTree = "<group>"; };
 		8667AE4D187FB88800600654 /* ARAnimationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARAnimationScene.h; sourceTree = "<group>"; };
 		8667AE4E187FB88800600654 /* ARAnimationScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARAnimationScene.m; sourceTree = "<group>"; };
 		8667AE50187FBFE100600654 /* EADrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EADrawView.h; sourceTree = "<group>"; };
@@ -193,6 +200,8 @@
 				8667AE59187FC11800600654 /* EALineDisplayView.m */,
 				8667AE52187FBFE100600654 /* EAScrollView.h */,
 				8667AE53187FBFE100600654 /* EAScrollView.m */,
+				8648D7EF1886DFD0008454B5 /* ARBezierPath.h */,
+				8648D7F01886DFD0008454B5 /* ARBezierPath.m */,
 			);
 			name = Cutout;
 			sourceTree = "<group>";
@@ -223,6 +232,9 @@
 				86375F8118836638008091BF /* ARTimedURL.m */,
 				86444B2B1885B5190006515A /* ARTouchNode.h */,
 				86444B2C1885B5190006515A /* ARTouchNode.m */,
+				8648D7F21886F505008454B5 /* ARTouchSystem.h */,
+				8648D7F31886F505008454B5 /* ARTouchSystem.m */,
+				8648D7F51886F5E1008454B5 /* ARPhysicsCategories.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -428,6 +440,7 @@
 				868905DD187FB5FA003F016C /* ARHomeViewController.m in Sources */,
 				8667AE5D187FD99E00600654 /* ARPart.m in Sources */,
 				8609109318822489009CCEF9 /* ARCharacterScene.m in Sources */,
+				8648D7F11886DFD0008454B5 /* ARBezierPath.m in Sources */,
 				868905E1187FB611003F016C /* ARAnimateViewController.m in Sources */,
 				868905B3187FB40F003F016C /* main.m in Sources */,
 				8609109918823440009CCEF9 /* ARCharacter.m in Sources */,
@@ -439,6 +452,7 @@
 				868905E4187FB61B003F016C /* ARCutoutViewController.m in Sources */,
 				860910A0188240F6009CCEF9 /* JCMath.m in Sources */,
 				8667AE54187FBFE100600654 /* EADrawView.m in Sources */,
+				8648D7F41886F505008454B5 /* ARTouchSystem.m in Sources */,
 				86375F8218836638008091BF /* ARTimedURL.m in Sources */,
 				860910A418824706009CCEF9 /* NSURL+Unique.m in Sources */,
 			);

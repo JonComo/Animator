@@ -12,7 +12,7 @@
 
 @protocol ARCutoutViewControllerDelegate <NSObject>
 
--(void)cutoutViewController:(ARCutoutViewController *)cutoutVC didPickImage:(UIImage *)image;
+-(void)cutoutViewController:(ARCutoutViewController *)cutoutVC didPickImages:(NSArray *)images;
 
 @end
 

@@ -57,12 +57,15 @@
     [self presentViewController:cutoutVC animated:YES completion:nil];
 }
 
--(void)cutoutViewController:(ARCutoutViewController *)cutoutVC didPickImage:(UIImage *)image
+-(void)cutoutViewController:(ARCutoutViewController *)cutoutVC didPickImages:(NSArray *)images
 {
-    //Add to parts collectionview
-    [UIImage saveImage:image];
-    
-    [partImages addObject:image];
+    for (UIImage *image in images)
+    {
+        //Add to parts collectionview
+        [UIImage saveImage:image];
+        
+        [partImages addObject:image];
+    }
     
     [collectionViewParts reloadData];
     [collectionViewParts scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:MAX(partImages.count-1, 0) inSection:0] atScrollPosition:UICollectionViewScrollPositionRight animated:YES];

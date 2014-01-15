@@ -90,7 +90,8 @@
     [drawView clearDrawing];
 }
 
-- (IBAction)undo:(id)sender {
+- (IBAction)undo:(id)sender
+{
     [drawView undo];
 }
 
@@ -100,11 +101,11 @@
 
 - (IBAction)done:(id)sender
 {
-    UIImage *transparent = [drawView getTransparentImage];
+    NSArray *transparentImages = [drawView getImages];
     
     //feed back as new character piece
-    if ([self.delegate respondsToSelector:@selector(cutoutViewController:didPickImage:)])
-        [self.delegate cutoutViewController:self didPickImage:transparent];
+    if ([self.delegate respondsToSelector:@selector(cutoutViewController:didPickImages:)])
+        [self.delegate cutoutViewController:self didPickImages:transparentImages];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

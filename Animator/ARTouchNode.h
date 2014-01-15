@@ -10,6 +10,8 @@
 
 @interface ARTouchNode : SKSpriteNode
 
++(ARTouchNode *)touchNodeForTouch:(UITouch *)touch position:(CGPoint)position;
+
 @property (nonatomic, strong) NSString *key;
 @property CGPoint lastPosition;
 

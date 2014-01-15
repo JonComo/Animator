@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class ARBezierPath;
+
 @interface EALineDisplayView : UIView
 
 @property (nonatomic, strong) NSMutableArray *paths;
+@property (nonatomic, strong) ARBezierPath *pathToRender;
+
 -(void)rasterize;
 
 @end

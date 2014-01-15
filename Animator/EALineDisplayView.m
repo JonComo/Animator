@@ -7,6 +7,7 @@
 //
 
 #import "EALineDisplayView.h"
+#import "ARBezierPath.h"
 
 @implementation EALineDisplayView
 {
@@ -22,12 +23,7 @@
     CGContextScaleCTM(ref, 1, -1);
     CGContextTranslateCTM(ref, 0, -self.bounds.size.height);
     
-    float alpha = self.alpha;
-    self.alpha = 1;
-    
     [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
-    
-    self.alpha = alpha;
     
     //[self.paths removeAllObjects];
     
@@ -43,12 +39,20 @@
     //if (image)
     //    CGContextDrawImage(context, rect, image.CGImage);
     
-    [[UIColor whiteColor] setStroke];
+    [[UIColor blackColor] setStroke];
     [[UIColor whiteColor] setFill];
     
-    for (UIBezierPath *path in self.paths){
-        [path stroke];
-        [path fill];
+    if (self.pathToRender)
+    {
+        NSLog(@"Rendered one path");
+        [self.pathToRender stroke];
+        [self.pathToRender fill];
+    }else{
+        NSLog(@"Rendered multipaths");
+        for (ARBezierPath *path in self.paths){
+            [path stroke];
+            [path fill];
+        }
     }
 }
 

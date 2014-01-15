@@ -16,7 +16,9 @@
 @property (nonatomic, strong) EALineDisplayView *viewPaths;
 
 -(void)setImage:(UIImage *)image;
--(UIImage *)getTransparentImage;
+
+-(UIImage *)transparentImageInRect:(CGRect)rect;
+-(NSArray *)getImages;
 
 -(void)undo;
 -(void)clearDrawing;
