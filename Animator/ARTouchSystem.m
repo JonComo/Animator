@@ -11,9 +11,6 @@
 #import "ARPart.h"
 
 @implementation ARTouchSystem
-{
-    NSMutableArray *touchNodes;
-}
 
 +(ARTouchSystem *)touchSystemWithScene:(SKScene *)scene parts:(NSMutableArray *)parts
 {
@@ -33,7 +30,7 @@
     for (ARPart *part in self.parts)
         part.alpha = 1;
     
-    for (ARTouchNode *touchNode in touchNodes)
+    for (ARTouchNode *touchNode in self.touchNodes)
     {
         NSArray *partsToConnect = [self partsToConnectAtTouchNode:touchNode];
         
@@ -44,7 +41,7 @@
 
 -(void)didSimulatePhysics
 {
-    for (ARTouchNode *touchNode in touchNodes)
+    for (ARTouchNode *touchNode in self.touchNodes)
         touchNode.position = touchNode.lastPosition;
 }
 
@@ -52,7 +49,7 @@
 {
     for (UITouch *touch in touches){
         ARTouchNode *touchNode;
-        for (ARTouchNode *testNode in touchNodes){
+        for (ARTouchNode *testNode in self.touchNodes){
             if ([testNode.key isEqualToString:[NSString stringWithFormat:@"%d", (int)touch]]) touchNode = testNode;
         }
         
@@ -62,14 +59,14 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (!touchNodes) touchNodes = [NSMutableArray array];
+    if (!self.touchNodes) self.touchNodes = [NSMutableArray array];
     
     UITouch *touch = [touches anyObject];
     
     ARTouchNode *touchNode = [ARTouchNode touchNodeForTouch:touch position:[touch locationInNode:self.scene]];
     
     touchNode.lastPosition = touchNode.position;
-    [touchNodes addObject:touchNode];
+    [self.touchNodes addObject:touchNode];
     [self.scene addChild:touchNode];
     
     //Get topmost node
@@ -119,7 +116,7 @@
         
         [self removeTouchNode:touchNode];
         
-        if (touchNodes.count == 0){
+        if (self.touchNodes.count == 0){
             //Last touch
             for (ARPart *part in self.parts){
                 part.physicsBody.collisionBitMask = categoryPart;
@@ -134,7 +131,7 @@
         [self.scene.physicsWorld removeJoint:pin];
     
     [touchNode removeFromParent];
-    [touchNodes removeObject:touchNode];
+    [self.touchNodes removeObject:touchNode];
     touchNode = nil;
 }
 

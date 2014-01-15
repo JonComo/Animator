@@ -8,12 +8,9 @@
 
 #import "ARAnimationScene.h"
 
-#import "ARTouchNode.h"
-#import "ARAnimation.h"
+#import "ARTouchSystem.h"
 
-static const uint32_t categoryNone = 0x1 << 0;
-static const uint32_t categoryTouch = 0x1 << 1;
-static const uint32_t categoryPart = 0x1 << 3;
+#import "ARAnimation.h"
 
 @interface ARAnimationScene () <ARAnimationDelegate>
 
@@ -22,7 +19,7 @@ static const uint32_t categoryPart = 0x1 << 3;
 @implementation ARAnimationScene
 {
     //Dragging system
-    NSMutableArray *touchNodes;
+    ARTouchSystem *touchSystem;
     
     //Play/record sprites
     SKSpriteNode *spriteProgress;
@@ -42,6 +39,9 @@ static const uint32_t categoryPart = 0x1 << 3;
         _animation.scene = self;
         
         _parts = [NSMutableArray array];
+        
+        touchSystem = [ARTouchSystem touchSystemWithScene:self parts:_parts];
+        touchSystem.allowsJointCreation = NO;
     }
     
     return self;
@@ -108,55 +108,17 @@ static const uint32_t categoryPart = 0x1 << 3;
 
 -(void)update:(NSTimeInterval)currentTime
 {
-    
+    [touchSystem update:currentTime];
 }
 
 -(void)didSimulatePhysics
 {
-    for (ARTouchNode *touchNode in touchNodes)
-        touchNode.position = touchNode.lastPosition;
-}
-
--(ARTouchNode *)touchNodeForTouch:(UITouch *)touch
-{
-    CGPoint position = [touch locationInNode:self];
-    
-    ARTouchNode *touchNode = [[ARTouchNode alloc] initWithColor:[UIColor redColor] size:CGSizeMake(20, 20)];
-    
-    touchNode.key = [NSString stringWithFormat:@"%d", (int)touch];
-    NSLog(@"key: %@", touchNode.key);
-    
-    touchNode.position = position;
-    touchNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:touchNode.size];
-    touchNode.physicsBody.mass = 10;
-    touchNode.physicsBody.categoryBitMask = categoryTouch;
-    touchNode.physicsBody.collisionBitMask = categoryNone;
-    
-    return touchNode;
+    [touchSystem didSimulatePhysics];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (!touchNodes) touchNodes = [NSMutableArray array];
-    
-    UITouch *touch = [touches anyObject];
-    
-    ARTouchNode *touchNode = [self touchNodeForTouch:touch];
-    
-    CGPoint touchLocation = [touch locationInNode:self];
-    NSArray *nodesAtPoint = [self nodesAtPoint:touchLocation];
-    
-    touchNode.lastPosition = touchLocation;
-    [touchNodes addObject:touchNode];
-    [self addChild:touchNode];
-    
-    //Get topmost node
-    SKSpriteNode *top = [nodesAtPoint lastObject];
-    
-    if ([top isMemberOfClass:[ARPart class]]){
-        SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:touchNode.physicsBody bodyB:top.physicsBody anchor:touchLocation];
-        [self.physicsWorld addJoint:joint];
-    }
+    [touchSystem touchesBegan:touches withEvent:event];
     
     if (self.shouldRecord)
         [self.animation startRecording];
@@ -164,47 +126,20 @@ static const uint32_t categoryPart = 0x1 << 3;
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    for (UITouch *touch in touches){
-        ARTouchNode *touchNode;
-        for (ARTouchNode *testNode in touchNodes){
-            if ([testNode.key isEqualToString:[NSString stringWithFormat:@"%d", (int)touch]]) touchNode = testNode;
-        }
-        
-        touchNode.position = [touch locationInNode:self];
-        touchNode.lastPosition = touchNode.position;
-    }
+    [touchSystem touchesMoved:touches withEvent:event];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    for (UITouch *touch in [touches allObjects]){
-        ARTouchNode *touchNode;
-        for (ARTouchNode *testNode in touchNodes){
-            if ([testNode.key isEqualToString:[NSString stringWithFormat:@"%d", (int)touch]]) touchNode = testNode;
-        }
-        
-        [self removeTouchNode:touchNode];
-    }
+    [touchSystem touchesEnded:touches withEvent:event];
     
-    if (self.shouldRecord && self.animation.isRecording && touchNodes.count == 0)
+    if (self.shouldRecord && self.animation.isRecording && touchSystem.touchNodes.count == 0)
         [self.animation stopRecording];
-    
-    //NSLog(@"Touch nodes: %@", touchNodes);
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self touchesEnded:touches withEvent:event];
-}
-
--(void)removeTouchNode:(ARTouchNode *)touchNode
-{
-    for (SKPhysicsJointPin *pin in touchNode.physicsBody.joints)
-        [self.physicsWorld removeJoint:pin];
-    
-    [touchNode removeFromParent];
-    [touchNodes removeObject:touchNode];
-    touchNode = nil;
+    [touchSystem touchesEnded:touches withEvent:event];
 }
 
 @end

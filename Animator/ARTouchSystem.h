@@ -21,6 +21,8 @@
 @property (nonatomic, weak) NSMutableArray *parts;
 @property (nonatomic, strong) NSMutableArray *pinJoints;
 
+@property (nonatomic, strong) NSMutableArray *touchNodes;
+
 +(ARTouchSystem *)touchSystemWithScene:(SKScene *)scene parts:(NSMutableArray *)parts;
 
 @property BOOL allowsJointCreation;

@@ -10,7 +10,6 @@
 
 #import "ARTouchSystem.h"
 
-
 @implementation ARCharacterScene
 {
     NSMutableArray *parts;
@@ -124,6 +123,11 @@
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [touchSystem touchesEnded:touches withEvent:event];
+}
+
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [touchSystem touchesEnded:touches withEvent:event];
 }
