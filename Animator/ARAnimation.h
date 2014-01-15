@@ -18,6 +18,9 @@ typedef void (^RenderBlock)(NSMutableArray *images, NSMutableArray *audio);
 -(void)animationDidStartPlaying:(ARAnimation *)animation;
 -(void)animationDidFinishPlaying:(ARAnimation *)animation;
 
+-(void)animationDidStartRecording:(ARAnimation *)animation;
+-(void)animationDidFinishRecording:(ARAnimation *)animation;
+
 -(void)animationChangedFrames:(ARAnimation *)animation;
 
 @end
@@ -39,7 +42,7 @@ typedef void (^RenderBlock)(NSMutableArray *images, NSMutableArray *audio);
 -(void)renderCompletion:(RenderBlock)block;
 
 -(void)startRecording;
--(void)stopRecordingSave:(BOOL)save;
+-(void)stopRecording;
 -(void)snapshot;
 
 -(void)restart;

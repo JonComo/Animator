@@ -95,6 +95,8 @@
 -(void)clear
 {
     [self.URLs removeAllObjects];
+    [self.player stop];
+    [recorder stop];
 }
 
 -(void)undo

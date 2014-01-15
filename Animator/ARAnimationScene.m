@@ -72,6 +72,17 @@ static const uint32_t categoryPart = 0x1 << 3;
     [self.parts removeAllObjects];
 }
 
+-(void)animationDidStartRecording:(ARAnimation *)animation
+{
+    self.view.layer.borderColor = [UIColor redColor].CGColor;
+    self.view.layer.borderWidth = 2;
+}
+
+-(void)animationDidFinishRecording:(ARAnimation *)animation
+{
+    self.view.layer.borderWidth = 0;
+}
+
 -(void)animationDidStartPlaying:(ARAnimation *)animation
 {
     self.physicsWorld.speed = 0;
@@ -147,7 +158,7 @@ static const uint32_t categoryPart = 0x1 << 3;
         [self.physicsWorld addJoint:joint];
     }
     
-    if (self.shouldRecord && !self.animation.isRecording)
+    if (self.shouldRecord)
         [self.animation startRecording];
 }
 
@@ -176,7 +187,7 @@ static const uint32_t categoryPart = 0x1 << 3;
     }
     
     if (self.shouldRecord && self.animation.isRecording && touchNodes.count == 0)
-        [self.animation stopRecordingSave:YES];
+        [self.animation stopRecording];
     
     //NSLog(@"Touch nodes: %@", touchNodes);
 }

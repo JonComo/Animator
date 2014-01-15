@@ -15,10 +15,12 @@
 {
     NSTimer *timerRecord;
     NSTimer *timerPlay;
+    NSTimer *timerDelayStop;
     
     NSMutableArray *frames;
     
     int frameStartedRecording;
+    int frameStoppedRecording;
     
     //Rendering
     RenderBlock _renderBlock;
@@ -118,6 +120,11 @@
 {
     if (!frames) frames = [NSMutableArray array];
     
+    [timerDelayStop invalidate]; //Stop countdown to ending recording
+    timerDelayStop = nil;
+    
+    if (self.isRecording) return;
+    
     [timerRecord invalidate];
     timerRecord = nil;
     
@@ -130,19 +137,36 @@
     
     [self snapshot];
     
-    NSLog(@"STARTED RECORDING");
+    [self.delegate animationDidStartRecording:self];
 }
 
--(void)stopRecordingSave:(BOOL)save
+-(void)stopRecording
 {
+    [timerDelayStop invalidate];
+    timerDelayStop = nil;
+    
+    frameStoppedRecording = self.currentFrame;
+    
+    timerDelayStop = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(delayedStopRecording) userInfo:nil repeats:NO];
+}
+
+-(void)delayedStopRecording
+{
+    [timerDelayStop invalidate];
+    timerDelayStop = nil;
+    
     [timerRecord invalidate];
     timerRecord = nil;
     
     self.isRecording = NO;
-    
     [audioRecorder stop];
     
-    NSLog(@"STOPPED RECORDING");
+    NSRange extraFrames = NSMakeRange(frameStoppedRecording, frames.count - frameStoppedRecording);
+    [frames removeObjectsInRange:extraFrames];
+    
+    self.currentFrame = frameStoppedRecording;
+    
+    [self.delegate animationDidFinishRecording:self];
 }
 
 -(void)snapshot
@@ -206,6 +230,7 @@
 {
     self.currentFrame = 0;
     [frames removeAllObjects];
+    [audioRecorder clear];
 }
 
 -(void)setCurrentFrame:(int)currentFrame
