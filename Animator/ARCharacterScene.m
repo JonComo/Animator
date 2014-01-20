@@ -44,8 +44,7 @@
     part.position = CGPointMake(self.size.width/2, self.size.height/2);
     
     part.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:MIN(part.size.width/2, part.size.height/2)];
-    part.physicsBody.mass = 0.05;
-    part.physicsBody.angularDamping = 0.2;
+    part.physicsBody.angularDamping = 0.8;
     part.physicsBody.categoryBitMask = categoryPart;
     part.physicsBody.collisionBitMask = categoryPart;
 }

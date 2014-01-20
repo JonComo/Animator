@@ -77,8 +77,10 @@
         [self.scene.physicsWorld addJoint:joint];
     }
     
-    for (ARPart *part in self.parts){
-        part.physicsBody.collisionBitMask = categoryNone;
+    if (self.allowsJointCreation){
+        for (ARPart *part in self.parts){
+            part.physicsBody.collisionBitMask = categoryNone;
+        }
     }
 }
 
@@ -116,7 +118,8 @@
         
         [self removeTouchNode:touchNode];
         
-        if (self.touchNodes.count == 0){
+        
+        if (self.touchNodes.count == 0 && self.allowsJointCreation){
             //Last touch
             for (ARPart *part in self.parts){
                 part.physicsBody.collisionBitMask = categoryPart;
