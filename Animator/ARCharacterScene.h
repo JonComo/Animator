@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Jon Como. All rights reserved.
 //
 
-#import <SpriteKit/SpriteKit.h>
+#import "ARScene.h"
 
 #import "ARCharacter.h"
 
-@interface ARCharacterScene : SKScene
+@interface ARCharacterScene : ARScene
 
 -(void)addPartFromImage:(UIImage *)image;
 -(void)clear;

@@ -12,8 +12,6 @@
 
 @implementation ARCharacterScene
 {
-    NSMutableArray *parts;
-    
     //Dragging system
     ARTouchSystem *touchSystem;
 }
@@ -26,9 +24,7 @@
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(-40, -40, size.width + 80, size.height + 80)];
         
-        parts = [NSMutableArray array];
-        
-        touchSystem = [ARTouchSystem touchSystemWithScene:self parts:parts];
+        touchSystem = [ARTouchSystem touchSystemWithScene:self parts:self.parts];
         touchSystem.allowsJointCreation = YES;
     }
     
@@ -38,7 +34,7 @@
 -(void)addPartFromImage:(UIImage *)image
 {
     ARPart *part = [ARPart partWithImage:image];
-    [parts addObject:part];
+    [self.parts addObject:part];
     [self addChild:part];
     
     part.position = CGPointMake(self.size.width/2, self.size.height/2);
@@ -53,18 +49,18 @@
 {
     [self.physicsWorld removeAllJoints];
     
-    for (ARPart *part in parts)
+    for (ARPart *part in self.parts)
         [part removeFromParent];
     
-    [parts removeAllObjects];
+    [self.parts removeAllObjects];
     [touchSystem.pinJoints removeAllObjects];
 }
 
 -(void)undo
 {
-    if (parts.count == 0) return;
+    if (self.parts.count == 0) return;
     
-    ARPart *lastAdded = [parts lastObject];
+    ARPart *lastAdded = [self.parts lastObject];
     
     for (SKPhysicsJointPin *pin in lastAdded.physicsBody.joints)
         [self.physicsWorld removeJoint:pin];
@@ -78,7 +74,7 @@
     
     [touchSystem.pinJoints removeObjectsInArray:pinsToRemove];
     
-    [parts removeObject:lastAdded];
+    [self.parts removeObject:lastAdded];
     [lastAdded removeFromParent];
 }
 
@@ -88,15 +84,17 @@
     ARCharacter *character = [ARCharacter new];
     
     //Add back collisions to other parts
-    for (ARPart *part in parts)
+    for (ARPart *part in self.parts)
         part.physicsBody.collisionBitMask = categoryPart;
     
-    [character.parts addObjectsFromArray:parts];
+    [character.parts addObjectsFromArray:self.parts];
     
     character.joints = touchSystem.pinJoints;
     
-    for (ARPart *part in parts)
+    for (ARPart *part in self.parts)
         [part removeFromParent];
+    
+    [self.parts removeAllObjects];
     
     return character;
 }

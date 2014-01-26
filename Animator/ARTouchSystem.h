@@ -15,17 +15,20 @@
 
 @import SpriteKit;
 
+@class ARScene;
+
 @interface ARTouchSystem : NSObject
 
-@property (nonatomic, weak) SKScene *scene;
+@property (nonatomic, weak) ARScene *scene;
 @property (nonatomic, weak) NSMutableArray *parts;
 @property (nonatomic, strong) NSMutableArray *pinJoints;
 
 @property (nonatomic, strong) NSMutableArray *touchNodes;
 
-+(ARTouchSystem *)touchSystemWithScene:(SKScene *)scene parts:(NSMutableArray *)parts;
++(ARTouchSystem *)touchSystemWithScene:(ARScene *)scene parts:(NSMutableArray *)parts;
 
 @property BOOL allowsJointCreation;
+@property BOOL allowsDeletion;
 
 -(void)update:(NSTimeInterval)currentTime;
 -(void)didSimulatePhysics;

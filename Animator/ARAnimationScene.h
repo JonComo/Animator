@@ -6,18 +6,15 @@
 //  Copyright (c) 2014 Jon Como. All rights reserved.
 //
 
-#import <SpriteKit/SpriteKit.h>
+#import "ARScene.h"
 #import "ARAnimation.h"
-#import "ARPart.h"
 
-@interface ARAnimationScene : SKScene
+@interface ARAnimationScene : ARScene
 
-@property (nonatomic, strong) NSMutableArray *parts;
 @property (nonatomic, strong) ARAnimation *animation;
 
 @property BOOL shouldRecord;
 
--(void)addPart:(ARPart *)part;
 -(void)restart;
 
 @end

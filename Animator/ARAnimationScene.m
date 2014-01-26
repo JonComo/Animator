@@ -38,25 +38,11 @@
         _animation = [ARAnimation animationWithDelegate:self];
         _animation.scene = self;
         
-        _parts = [NSMutableArray array];
-        
-        touchSystem = [ARTouchSystem touchSystemWithScene:self parts:_parts];
+        touchSystem = [ARTouchSystem touchSystemWithScene:self parts:self.parts];
         touchSystem.allowsJointCreation = NO;
     }
     
     return self;
-}
-
--(void)addPart:(ARPart *)part
-{
-    [self.parts addObject:part];
-    [self addChild:part];
-}
-
--(void)removePart:(ARPart *)part
-{
-    [self.parts removeObject:part];
-    [part removeFromParent];
 }
 
 -(void)restart

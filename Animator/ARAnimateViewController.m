@@ -59,6 +59,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)dealloc
+{
+    NSLog(@"Later!");
+}
+
 - (IBAction)record:(id)sender
 {
     scene.shouldRecord = !scene.shouldRecord;
@@ -119,6 +124,8 @@
 
 - (IBAction)cancel:(id)sender
 {
+    [scene.animation stop];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

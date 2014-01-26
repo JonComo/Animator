@@ -8,18 +8,33 @@
 
 #import "ARTouchSystem.h"
 
-#import "ARPart.h"
+#import "ARScene.h"
 
 @implementation ARTouchSystem
-
-+(ARTouchSystem *)touchSystemWithScene:(SKScene *)scene parts:(NSMutableArray *)parts
 {
-    ARTouchSystem *system = [ARTouchSystem new];
+    SKSpriteNode *spriteHide;
+}
+
++(ARTouchSystem *)touchSystemWithScene:(ARScene *)scene parts:(NSMutableArray *)parts
+{
+    return [[ARTouchSystem alloc] initWithScene:scene parts:parts];
+}
+
+-(id)initWithScene:(ARScene *)scene parts:(NSMutableArray *)parts
+{
+    if (self = [super init]) {
+        //init
+        _scene = scene;
+        _parts = parts;
+        _allowsDeletion = YES;
+        
+        spriteHide = [[SKSpriteNode alloc] initWithColor:[UIColor redColor] size:CGSizeMake(20, 20)];
+        [scene addChild:spriteHide];
+        spriteHide.position = CGPointMake(scene.size.width - 40, 40);
+        spriteHide.alpha = 0.2;
+    }
     
-    system.scene = scene;
-    system.parts = parts;
-    
-    return system;
+    return self;
 }
 
 -(void)update:(NSTimeInterval)currentTime
@@ -95,6 +110,17 @@
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self enumerateTouchNodesForTouches:touches block:^(ARTouchNode *touchNode, UITouch *touch) {
+        
+        if (self.allowsDeletion)
+        {
+            //Deleting parts
+            if (ABS(spriteHide.position.x - touchNode.position.x) < 40 && ABS(spriteHide.position.y - touchNode.position.y) < 40)
+            {
+                //Get topmost node
+                ARPart *nodeDragging = [[self partsAtTouchNode:touchNode] lastObject];
+                [self.scene removePart:nodeDragging];
+            }
+        }
         
         if (self.allowsJointCreation)
         {
