@@ -150,6 +150,21 @@
     timerDelayStop = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(delayedStopRecording) userInfo:nil repeats:NO];
 }
 
+-(void)stopRecordingDontSave
+{
+    //delete frames and last audio recording up to frame started recording
+    NSRange deleteRange = NSMakeRange(frameStartedRecording, self.currentFrame);
+    
+    [frames removeObjectsInRange:deleteRange];
+    
+    self.currentFrame = frameStartedRecording;
+    [self layoutFrame:self.currentFrame];
+    
+    [audioRecorder.URLs removeLastObject];
+    
+    [self.delegate animationDidFinishRecording:self];
+}
+
 -(void)delayedStopRecording
 {
     [timerDelayStop invalidate];

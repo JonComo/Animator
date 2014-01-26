@@ -31,10 +31,17 @@
         spriteHide = [[SKSpriteNode alloc] initWithColor:[UIColor redColor] size:CGSizeMake(20, 20)];
         [scene addChild:spriteHide];
         spriteHide.position = CGPointMake(scene.size.width - 40, 40);
-        spriteHide.alpha = 0.2;
+        spriteHide.alpha = 0;
     }
     
     return self;
+}
+
+-(void)setAllowsDeletion:(BOOL)allowsDeletion
+{
+    _allowsDeletion = allowsDeletion;
+    
+    spriteHide.alpha = allowsDeletion ? 0.2 : 0.0;
 }
 
 -(void)update:(NSTimeInterval)currentTime
@@ -92,11 +99,14 @@
         [self.scene.physicsWorld addJoint:joint];
     }
     
+    //UI
     if (self.allowsJointCreation){
         for (ARPart *part in self.parts){
             part.physicsBody.collisionBitMask = categoryNone;
         }
     }
+    
+    if (self.allowsDeletion) spriteHide.alpha = 0.5;
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -113,12 +123,12 @@
         
         if (self.allowsDeletion)
         {
-            //Deleting parts
+            //Hiding parts
             if (ABS(spriteHide.position.x - touchNode.position.x) < 40 && ABS(spriteHide.position.y - touchNode.position.y) < 40)
             {
                 //Get topmost node
                 ARPart *nodeDragging = [[self partsAtTouchNode:touchNode] lastObject];
-                [self.scene removePart:nodeDragging];
+                [self.scene hideCharacterWithPart:nodeDragging];
             }
         }
         
@@ -144,12 +154,16 @@
         
         [self removeTouchNode:touchNode];
         
-        
-        if (self.touchNodes.count == 0 && self.allowsJointCreation){
-            //Last touch
-            for (ARPart *part in self.parts){
-                part.physicsBody.collisionBitMask = categoryPart;
+        if (self.touchNodes.count == 0){
+            //Last touch - make all nodes back into parts so they can intersect
+            if (self.allowsJointCreation)
+            {
+                for (ARPart *part in self.parts){
+                    part.physicsBody.collisionBitMask = categoryPart;
+                }
             }
+            
+            if (self.allowsDeletion) spriteHide.alpha = 0;
         }
     }];
 }

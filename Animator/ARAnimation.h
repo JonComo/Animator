@@ -43,6 +43,7 @@ typedef void (^RenderBlock)(NSMutableArray *images, NSMutableArray *audio);
 
 -(void)startRecording;
 -(void)stopRecording;
+-(void)stopRecordingDontSave;
 -(void)snapshot;
 
 -(void)restart;

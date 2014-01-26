@@ -28,7 +28,7 @@
 +(ARTouchSystem *)touchSystemWithScene:(ARScene *)scene parts:(NSMutableArray *)parts;
 
 @property BOOL allowsJointCreation;
-@property BOOL allowsDeletion;
+@property (nonatomic, assign) BOOL allowsDeletion;
 
 -(void)update:(NSTimeInterval)currentTime;
 -(void)didSimulatePhysics;

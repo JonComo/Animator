@@ -35,9 +35,58 @@
 
 -(void)hideCharacterWithPart:(ARPart *)part
 {
+    NSMutableArray *workingNodes = [self nodesConnectedToNode:part];
+    NSMutableArray *allNodes = [NSMutableArray arrayWithArray:workingNodes];
+    
+    BOOL lastNodeFound = NO;
+    
+    do {
+        NSMutableArray *nextLevel = [NSMutableArray array];
+        
+        for (SKNode *node in workingNodes)
+        {
+            NSMutableArray *foundNodes = [self nodesConnectedToNode:(SKSpriteNode *)node];
+            
+            if (foundNodes.count != 0)
+            {
+                for (SKNode *foundNode in foundNodes)
+                {
+                    if (![allNodes containsObject:foundNode])
+                    {
+                        [nextLevel addObjectsFromArray:foundNodes];
+                        [allNodes addObjectsFromArray:foundNodes];
+                    }
+                }
+            }
+        }
+        
+        if (nextLevel.count == 0){
+            lastNodeFound = YES;
+        }else{
+            workingNodes = nextLevel;
+        }
+        
+    } while (!lastNodeFound);
+    
+    for (SKNode *node in allNodes){
+        node.position = CGPointMake(node.position.x, node.position.y + 4000);
+    }
+}
+
+-(NSMutableArray *)nodesConnectedToNode:(SKSpriteNode *)node
+{
     NSMutableArray *nodesInvolved = [NSMutableArray array];
+
+    for (SKPhysicsJoint *joint in node.physicsBody.joints)
+    {
+        SKNode *nodeA = joint.bodyA.node;
+        SKNode *nodeB = joint.bodyB.node;
+        
+        if (![nodesInvolved containsObject:nodeA]) [nodesInvolved addObject:nodeA];
+        if (![nodesInvolved containsObject:nodeB]) [nodesInvolved addObject:nodeB];
+    }
     
-    
+    return nodesInvolved;
 }
 
 @end
